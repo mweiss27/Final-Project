@@ -1,0 +1,17 @@
+Ziman: A task management application. A user can signup to create and manage tasks for their day to day life. This would include adding, editing, deleting, and receiving various types of notifications based on the tasks at hand.
+
+Robert: A stock market game where each player starts with a certain amount of money, and their goal is to accumulate the most money based on the current stock market prices.
+
+Matt: A wedding "hub". The organizers can create accounts for guests to RSVP, select seating arrangements, view the food offerings, list allergies if needed, access song requests, leave congratulation notes, donate to the married couple, and potentially more.
+
+Patrick:
+
+
+Everyone liked the wedding idea. It has the most content, and has a number of real world applications.
+The website would be rather simple. There would be a landing page that looks similar to a blog entry that describes the couple being wed, as well as some photos of the couple to give it a nice touch. On this landing page, there would be a login form where a guest can login with their pre-assigned credentials that they received with their mailed invitation. Once logged in, the guest will have access to a number of other features. Most importantly, an option to RSVP for the wedding. Once RSVP'd, the guest can supply further details about their reservation. They can select seats in the wedding venue, view the food being served at the reception, and submit any allergies they may have in the event that there should be accomodations for said allergies. During the wedding, a guest can visit the song request page and submit any song name they would like, which would be added to a queue that the DJ would be working through throughout the night.
+
+The user interface is kind of a mystery at this point, we haven't thought that far into it.
+
+Data storage will be pretty standard. We will likely use MYSQL to store everything ranging from user account information, RSVP's, the song queue, seating reservations, etc... Again, we have only scratched the surface of this, so a lot of things have yet to be decided
+
+Matt wrote the proposal, though we met and discussed our ideas. I simply took everyone's words and put them into text.
