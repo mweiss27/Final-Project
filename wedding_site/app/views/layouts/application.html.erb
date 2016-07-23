@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>WeddingSite</title>
+    <title>Weiss Wedding</title>
+    <% favicon_link_tag "ring.png" %>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= puts "Controller: #{params[:controller]}" %>
+    <%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+  	<%= yield %>
   </body>
 </html>

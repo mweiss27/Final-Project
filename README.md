@@ -2,10 +2,10 @@
 ### Ruby on Rails Project
 
 ### Roles
-* Overall Project Manager:
-* Coding Manager:
-* Testing Manager:
-* Documentation:
+* Overall Project Manager: Matt
+* Coding Manager: Ziman
+* Testing Manager: Robert
+* Documentation: Matt
 
 ### Contributions
 Please list who did what for each part of the project.
