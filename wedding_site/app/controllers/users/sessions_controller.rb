@@ -1,28 +1,22 @@
-# class Users::SessionsController < Devise::SessionsController
-# 	#respond_to :json
-# 	def resource_name
-# 		:user
-# 	end
+class Users::SessionsController < Devise::SessionsController
+	respond_to :json
 
-# 	def resource
-# 		@resource ||= User.new
-# 	end
+	after_filter :log_failed_login, :only => :new
 
-# 	def devise_mapping
-# 		@devise_mapping ||= Devise.mappings[:user]
-# 	end
+	  def create
+	  	::Rails.logger.info "create"
+	    super
+	    ::Rails.logger.info "\n***\nSuccessful login with email_id : #{request.filtered_parameters["user"]}\n***\n"
+	  end
 
-# 	def sign_in_and_redirect(resource_or_scope, resource=nil)
-# 		puts "sign in and redirect"
-# 	    scope = Devise::Mapping.find_scope!(resource_or_scope)
-# 	    resource ||= resource_or_scope
-# 	    sign_in(scope, resource) unless warden.user(scope) == resource
-# 	    return render :json => {:success => true}
-#   	end
+	  private
+	  def log_failed_login
+	  	puts "failed"
+	    ::Rails.logger.info "\n***\nFailed login with email_id : #{request.filtered_parameters["user"]}\n***\n" if failed_login?
+	  end 
 
-#   	def failure
-#   		puts "SessionController failed!"
-# 		return render :json => {:success => false, :errors => ["Login failed."]}
-# 	end
-
-# end
+	  def failed_login?
+	  	puts "failed???"
+	    (options = env["warden.options"]) && options[:action] == "unauthenticated"
+	  end 
+end
