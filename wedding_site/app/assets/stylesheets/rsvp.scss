@@ -19,6 +19,14 @@ textarea.form-control {
     -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
 }
 
+.form-group {
+    padding: 10px
+}
+
+.pad2 {
+    padding: 2px;
+}
+
 textarea, 
 textarea.form-control {
 	height: 90px;
@@ -176,9 +184,7 @@ img { max-width: 100%; }
 
 .f1-buttons { text-align: right; }
 
-.f1 .input-error { border-color: #0099cc; }
-
-
+.f1 .input-error { border-color: #ff0000; }
 
 /***** Media queries *****/
 

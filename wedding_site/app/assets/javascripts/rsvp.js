@@ -19,7 +19,7 @@ function bar_progress(progress_line_object, direction) {
 	progress_line_object.attr('style', 'width: ' + new_value + '%;').data('now-value', new_value);
 }
 
-jQuery(document).ready(function() {
+$(document).ready(function() {
     
     $('#top-navbar-1').on('shown.bs.collapse', function(){
     	$.backstretch("resize");
@@ -39,6 +39,7 @@ jQuery(document).ready(function() {
     
     // next step
     $('.f1 .btn-next').on('click', function() {
+        console.log("btn-next click");
     	var parent_fieldset = $(this).parents('fieldset');
     	var next_step = true;
     	// navigation steps / progress steps
@@ -49,6 +50,7 @@ jQuery(document).ready(function() {
     	parent_fieldset.find('input[type="text"], input[type="password"], textarea').each(function() {
     		if( $(this).val() == "" ) {
     			$(this).addClass('input-error');
+                $("#guestErrors").html("Required field(s) missing");
     			next_step = false;
     		}
     		else {
@@ -106,6 +108,50 @@ jQuery(document).ready(function() {
     	// fields validation
     	
     });
+
+    var template = "<div class=\"form-group\" id=\"guest%INDEX%\">\
+                        <span style=\"cursor:pointer\" name=\"guestDelete\" index=\"%INDEX%\" id=\"guestDelete%INDEX%\" class=\"glyphicon glyphicon-trash\"></span>\
+                            <label id=\"labGuest%INDEX%\" style=\"padding-left:3px\">Guest %INDEX%</label><br />\
+                        <input type=\"text\" placeholder=\"First name\">\
+                        <input type=\"text\" placeholder=\"Last name\">\
+                    </div>";
     
+    var index = 1;
+    $("#addGuest").on("click", function() {
+        if (index > 4) {
+            alert("You may only bring up to 4 guests.");
+            return;
+        }
+        var compiled = template.replace(new RegExp("%INDEX%", 'g'), index.toString());
+        $("#guests").append(compiled);
+
+        index++;
+    });
+
+    $("#guests").on("click", "[name='guestDelete']", function() {
+        var removedIndex = parseInt(this.getAttribute("index"));
+        $("#guest" + removedIndex).remove();
+
+        for (i = removedIndex+1; i <= 4; i++) {
+            $("#guestDelete" + i).attr("index", (i-1));
+            $("#guestDelete" + i).attr("id", "guestDelete" + (i-1));
+            $("#labGuest" + i).text("Guest " + (i-1));
+            $("#labGuest" + i).attr("id", "labGuest" + (i-1));
+            $("#guest" + i).attr("id", "guest" + (i-1));
+        }
+        index--;
+
+    });
+
+    $("#guests").on("blur", "input[type='text']", function() {
+        console.log("Checking our values.")
+        console.log($(this));
+        if( $(this).val() != "" ) {
+            $(this).removeClass('input-error');
+            if ($(".input-error").length == 0) {
+                $("#guestErrors").html("");
+            }
+        }
+    });
     
 });

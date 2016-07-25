@@ -15,72 +15,61 @@
                     			</div>
                     			<div class="f1-step active">
                     				<div class="f1-step-icon"><i class="fa fa-user"></i></div>
-                    				<p>about</p>
+                    				<p>Confirm</p>
                     			</div>
                     			<div class="f1-step">
                     				<div class="f1-step-icon"><i class="fa fa-key"></i></div>
-                    				<p>account</p>
+                    				<p>Guests</p>
                     			</div>
                     		    <div class="f1-step">
                     				<div class="f1-step-icon"><i class="fa fa-twitter"></i></div>
-                    				<p>social</p>
+                    				<p>Accommodations</p>
                     			</div>
                     		</div>
                     		
                     		<fieldset>
-                    		    <h4>Tell us who you are:</h4>
-                    			<div class="form-group">
+                    			<div class="pad2">
                     			    <label class="sr-only" for="f1-first-name">First name</label>
-                                    <input type="text" name="f1-first-name" placeholder="First name" class="f1-first-name form-control" id="f1-first-name">
+                                    <input type="text" name="f1-first-name" value="<%= current_user.first_name %>" class="f1-first-name form-control" id="f1-first-name" disabled>
                                 </div>
-                                <div class="form-group">
+                                <div class="pad2">
                                     <label class="sr-only" for="f1-last-name">Last name</label>
-                                    <input type="text" name="f1-last-name" placeholder="Last name" class="f1-last-name form-control" id="f1-last-name">
+                                    <input type="text" name="f1-last-name" value="<%= current_user.last_name %>"class="f1-last-name form-control" id="f1-last-name" disabled>
                                 </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-about-yourself">About yourself</label>
-                                    <textarea name="f1-about-yourself" placeholder="About yourself" 
-                                    	                 class="f1-about-yourself form-control" id="f1-about-yourself"></textarea>
+                                <div class="pad2">
+                                    <div class="radio">
+                                    	<label><input type="radio" name="rsvpConf" value="1" checked>Attending</label>
+                                    </div>
+                                    <div class="radio">
+                                    	<label><input type="radio" name="rsvpConf" value="0">Not attending</label>
+                                    </div>
                                 </div>
                                 <div class="f1-buttons">
                                     <button type="button" class="btn btn-next">Next</button>
                                 </div>
                             </fieldset>
 
-                            <fieldset>
-                                <h4>Set up your account:</h4>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-email">Email</label>
-                                    <input type="text" name="f1-email" placeholder="Email" class="f1-email form-control" id="f1-email">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-password">Password</label>
-                                    <input type="password" name="f1-password" placeholder="Password" class="f1-password form-control" id="f1-password">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-repeat-password">Repeat password</label>
-                                    <input type="password" name="f1-repeat-password" placeholder="Repeat password" 
-                                                        class="f1-repeat-password form-control" id="f1-repeat-password">
-                                </div>
+                            <fieldset id="guestPage">
+                                <div id="addGuest" class="btn btn-info">
+						          <span class="glyphicon glyphicon-plus"></span> Add a Guest (Max 4)
+						        </div>
+						        <div id="guests" style="overflow:auto;max-height:250px;">
+						        </div>
+                                
                                 <div class="f1-buttons">
+                                	<span id="guestErrors" style="color:red"></span>
                                     <button type="button" class="btn btn-previous">Previous</button>
-                                    <button type="button" class="btn btn-next">Next</button>
+                                    <button id="gNext" type="button" class="btn btn-next">Next</button>
                                 </div>
                             </fieldset>
 
                             <fieldset>
-                                <h4>Social media profiles:</h4>
+                                <h4>Accommodations</h4>
                                 <div class="form-group">
-                                    <label class="sr-only" for="f1-facebook">Facebook</label>
-                                    <input type="text" name="f1-facebook" placeholder="Facebook" class="f1-facebook form-control" id="f1-facebook">
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="f1-twitter">Twitter</label>
-                                    <input type="text" name="f1-twitter" placeholder="Twitter" class="f1-twitter form-control" id="f1-twitter">
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="f1-google-plus">Google plus</label>
-                                    <input type="text" name="f1-google-plus" placeholder="Google plus" class="f1-google-plus form-control" id="f1-google-plus">
                                 </div>
                                 <div class="f1-buttons">
                                     <button type="button" class="btn btn-previous">Previous</button>
