@@ -1,0 +1,403 @@
+/* line 2, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+input[type="text"],
+input[type="password"],
+textarea,
+textarea.form-control {
+  height: 44px;
+  margin: 0;
+  padding: 0 20px;
+  vertical-align: middle;
+  background: #fff;
+  border: 1px solid #ddd;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 44px;
+  color: #888;
+  border-radius: 4px;
+  box-shadow: none;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+/* line 22, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+textarea,
+textarea.form-control {
+  height: 90px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 30px;
+}
+
+/* line 30, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+textarea.form-control:focus {
+  outline: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: none;
+}
+
+/* line 40, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+input[type="text"]:-moz-placeholder, input[type="password"]:-moz-placeholder,
+textarea:-moz-placeholder, textarea.form-control:-moz-placeholder {
+  color: #888;
+}
+
+/* line 43, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+input[type="text"]:-ms-input-placeholder, input[type="password"]:-ms-input-placeholder,
+textarea:-ms-input-placeholder, textarea.form-control:-ms-input-placeholder {
+  color: #888;
+}
+
+/* line 46, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+input[type="text"]::-webkit-input-placeholder, input[type="password"]::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder, textarea.form-control::-webkit-input-placeholder {
+  color: #888;
+}
+
+/* line 49, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+label {
+  font-weight: 300;
+}
+
+/* line 52, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+button.btn {
+  min-width: 105px;
+  height: 40px;
+  margin: 0;
+  padding: 0 20px;
+  vertical-align: middle;
+  border: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 40px;
+  color: #fff;
+  border-radius: 4px;
+  text-shadow: none;
+  box-shadow: none;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+/* line 70, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+button.btn:hover {
+  opacity: 0.6;
+  color: #fff;
+}
+
+/* line 71, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+button.btn:active {
+  outline: 0;
+  opacity: 0.6;
+  color: #fff;
+  box-shadow: none;
+}
+
+/* line 72, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+button.btn:focus,
+button.btn:active:focus,
+button.btn.active:focus {
+  outline: 0;
+  opacity: 0.6;
+  color: #fff;
+}
+
+/* line 76, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+button.btn.btn-next,
+button.btn.btn-next:focus,
+button.btn.btn-next:active:focus, button.btn.btn-next.active:focus {
+  background: #f35b3f;
+}
+
+/* line 80, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+button.btn.btn-submit,
+button.btn.btn-submit:focus,
+button.btn.btn-submit:active:focus, button.btn.btn-submit.active:focus {
+  background: #f35b3f;
+}
+
+/* line 84, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+button.btn.btn-previous,
+button.btn.btn-previous:focus,
+button.btn.btn-previous:active:focus, button.btn.btn-previous.active:focus {
+  background: #bbb;
+}
+
+/* line 88, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+strong {
+  font-weight: 500;
+}
+
+/* line 90, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+a, a:hover, a:focus {
+  color: #f35b3f;
+  text-decoration: none;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+/* line 96, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+h1, h2 {
+  margin-top: 10px;
+  font-size: 38px;
+  font-weight: 100;
+  color: #555;
+  line-height: 50px;
+}
+
+/* line 104, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+h3 {
+  font-size: 22px;
+  font-weight: 300;
+  color: #555;
+  line-height: 30px;
+}
+
+/* line 111, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+h4 {
+  font-size: 18px;
+  font-weight: 300;
+  color: #555;
+  line-height: 26px;
+}
+
+/* line 118, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+img {
+  max-width: 100%;
+}
+
+/* line 120, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+::-moz-selection {
+  background: #f35b3f;
+  color: #fff;
+  text-shadow: none;
+}
+
+/* line 121, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+::-moz-selection {
+  background: #f35b3f;
+  color: #fff;
+  text-shadow: none;
+}
+::selection {
+  background: #f35b3f;
+  color: #fff;
+  text-shadow: none;
+}
+
+/***** Top content *****/
+/* line 127, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.top-content {
+  padding: 40px 0 170px 0;
+}
+
+/* line 129, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.top-content .text {
+  color: #fff;
+}
+
+/* line 130, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.top-content .text h1 {
+  color: #fff;
+}
+
+/* line 131, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.top-content .description {
+  margin: 20px 0 10px 0;
+}
+
+/* line 132, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.top-content .description p {
+  opacity: 0.8;
+}
+
+/* line 133, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.top-content .description a {
+  color: #fff;
+}
+
+/* line 134, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.top-content .description a:hover,
+.top-content .description a:focus {
+  border-bottom: 1px dotted #fff;
+}
+
+/* line 137, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.form-box {
+  padding-top: 40px;
+}
+
+/* line 139, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.f1 {
+  padding: 25px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+/* line 143, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.f1 h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+/* line 145, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.f1-steps {
+  overflow: hidden;
+  position: relative;
+  margin-top: 20px;
+}
+
+/* line 147, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.f1-progress {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #ddd;
+}
+
+/* line 148, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.f1-progress-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1px;
+  background: #f35b3f;
+}
+
+/* line 150, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.f1-step {
+  position: relative;
+  float: left;
+  width: 33.333333%;
+  padding: 0 5px;
+}
+
+/* line 152, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.f1-step-icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin-top: 4px;
+  background: #ddd;
+  font-size: 16px;
+  color: #fff;
+  line-height: 40px;
+  border-radius: 50%;
+}
+
+/* line 157, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.f1-step.activated .f1-step-icon {
+  background: #fff;
+  border: 1px solid #f35b3f;
+  color: #f35b3f;
+  line-height: 38px;
+}
+
+/* line 160, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.f1-step.active .f1-step-icon {
+  width: 48px;
+  height: 48px;
+  margin-top: 0;
+  background: #f35b3f;
+  font-size: 22px;
+  line-height: 48px;
+}
+
+/* line 164, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.f1-step p {
+  color: #ccc;
+}
+
+/* line 165, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.f1-step.activated p {
+  color: #f35b3f;
+}
+
+/* line 166, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.f1-step.active p {
+  color: #f35b3f;
+}
+
+/* line 168, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.f1 fieldset {
+  display: none;
+  text-align: left;
+}
+
+/* line 170, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.f1-buttons {
+  text-align: right;
+}
+
+/* line 172, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+.f1 .input-error {
+  border-color: #f35b3f;
+}
+
+/***** Media queries *****/
+@media (max-width: 767px) {
+  /* line 184, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+  .navbar {
+    padding-top: 0;
+  }
+
+  /* line 185, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+  .navbar.navbar-no-bg {
+    background: #333;
+    background: rgba(51, 51, 51, 0.9);
+  }
+
+  /* line 186, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+  .navbar-brand {
+    height: 60px;
+    margin-left: 15px;
+  }
+
+  /* line 187, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+  .navbar-collapse {
+    border: 0;
+  }
+
+  /* line 188, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+  .navbar-toggle {
+    margin-top: 12px;
+  }
+
+  /* line 190, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+  .top-content {
+    padding: 40px 0 110px 0;
+  }
+}
+@media (max-width: 415px) {
+  /* line 196, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+  h1, h2 {
+    font-size: 32px;
+  }
+
+  /* line 198, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+  .f1 {
+    padding-bottom: 20px;
+  }
+
+  /* line 199, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+  .f1-buttons button {
+    margin-bottom: 5px;
+  }
+}
+/* Retina-ize images/icons */
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  /* logo */
+  /* line 215, /Users/Matt/Desktop/CSE3901/Final Project/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/rsvp.scss */
+  .navbar-brand {
+    background-image: url(../img/logo@2x.png) !important;
+    background-repeat: no-repeat !important;
+    background-size: 162px 36px !important;
+  }
+}
