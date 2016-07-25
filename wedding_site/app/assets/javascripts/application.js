@@ -27,7 +27,3 @@
 //     });
 //     return false; // prevents normal behaviour
 // });
-
-function test() {
-	console.log("Test function");
-}

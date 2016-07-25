@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   	get "/logout" => "devise/sessions#destroy"
   	get "/rsvp" => "rsvp#index"
   	post "/" => "landing#index"
+  	post "/rsvp" => "rsvp#submit"
   end
 end
