@@ -118,8 +118,8 @@ $(document).ready(function() {
     var template = "<div class=\"form-group\" id=\"guest%INDEX%\">\
                         <span style=\"cursor:pointer\" name=\"guestDelete\" index=\"%INDEX%\" id=\"guestDelete%INDEX%\" class=\"glyphicon glyphicon-trash\"></span>\
                             <label id=\"labGuest%INDEX%\" style=\"padding-left:3px\">Guest %INDEX%</label><br />\
-                        <input type=\"text\" placeholder=\"First name\">\
-                        <input type=\"text\" placeholder=\"Last name\">\
+                        <input type=\"text\" placeholder=\"First name\" name=\"guests[%INDEX%][first]\">\
+                        <input type=\"text\" placeholder=\"Last name\" name=\"guests[%INDEX%][last]\">\
                     </div>";
     
     var index = 1;
