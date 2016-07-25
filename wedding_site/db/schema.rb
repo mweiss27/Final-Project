@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725173423) do
+ActiveRecord::Schema.define(version: 20160725185554) do
+
+  create_table "tables", force: :cascade do |t|
+    t.integer  "guest1_id"
+    t.integer  "guest2_id"
+    t.integer  "guest3_id"
+    t.integer  "guest4_id"
+    t.integer  "guest5_id"
+    t.integer  "guest6_id"
+    t.integer  "guest7_id"
+    t.integer  "guest8_id"
+    t.integer  "free"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "encrypted_password",     default: "", null: false
