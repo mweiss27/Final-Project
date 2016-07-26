@@ -5,34 +5,96 @@ class RsvpController < ApplicationController
 
 	def index
 		puts "index. #{current_user.id}"
-		@alreadyDone = false
+		puts "INDEX. HASH: #{self.object_id}"
+
+		@rsvp = Rsvp.find_by_user_id(current_user.id)
+		@alreadyDone = @rsvp != nil
+
+		if @alreadyDone then
+			response = @rsvp.response
+			@attending = response == 1
+		end
+
+		@rsvp ||= @rsvp = Rsvp.new(:user_id => current_user.id)
+
 		@attending = nil
-		rsvp = Rsvp.find_by_user_id(current_user.id)
-		if rsvp != nil then
-			@alreadyDone = true
-			@guests = "{ \"guests\": " + Guest.where(:user_id => current_user.id).to_a.to_json + "}"
-			puts "Guests: #{@guests}"
-			@response = Rsvp.where(:user_id => current_user.id)
-			if @response != nil then
-				@response = @response.first.response
-				@attending = @response == 1
-			end
+		
+		# puts "Creating @guestsA"
+		# @guestsA = []
+		
+		# if @rsvp != nil then
+		# 	@alreadyDone = true
+
+		# 	g = Guest.where(:user_id => current_user.id)
+
+
+		# 	g.each do |g| @guestsA << g end
+
+		# 	@guests = "{ \"guests\": " + g.to_a.to_json + "}"
+		# 	puts "Guests: #{@guests}"
+		# 	@response = Rsvp.where(:user_id => current_user.id)
+		# 	if @response != nil then
+		# 		@response = @response.first.response
+		# 		@attending = @response == 1
+		# 	end
+		# end
+		# puts "@guestsA: #{@guestsA}"
+		# if @rsvp == nil then
+		# 	@rsvp = Rsvp.new(:user_id => current_user.id)
+		# end
+		@choices = Accommodation.all
+	end
+
+	def add_guest
+		id = params[:id]
+		session["tGuests"] ||= []
+		cu = current_user
+		rsvp = Rsvp.find_by_user_id(cu.id)
+		ng = Guest.new(:user_id => cu.id, :rsvp_id => rsvp.id)
+		session["tGuests"][id] = ng #Temporary guest
+	end
+
+	def remove_guest
+		id = params[:id]
+		session["tGuests"][id] = nil
+		(id..4).step(1) do |i|
+			session["tGuests"][i] = session["tGuests"][i+1]
 		end
 
 	end
 
-	def submit
+	def list_guests
+		guests = current_user.guests
+		respond_to do |format|
+	        format.html { render :partial => "/rsvp/guestChoices", :locals => { :guests => guests } }
+	        format.js
+		end
+	end
 
+	def update_guests
+		session["tGuests"] ||= []
+		guests = []
+		current_user.guests.each do |g| guests << g end
+		(1..4).step(1) do |i|
+			if session["tGuests"][i] != nil then
+				guests << session["tGuests"][i]
+			end
+		end
+		respond_to do |format|
+	        format.html { render :partial => "/rsvp/guest_list", :locals => { :guests => guests } }
+	        format.js
+		end
+	end
+
+	def submit
+		puts "SUBMIT. HASH: #{self.object_id}"
 
 		conf = params[:rsvpConf].strip
 		attending = conf != nil && conf.to_i == 1
 		if conf != nil then
-			rsvp = Rsvp.find_by_user_id(current_user.id)
-			if rsvp == nil then
-				rsvp = Rsvp.new(:user_id => current_user.id)
-			end
-			rsvp.response = attending ? 1 : 0
-			if !rsvp.save then
+			
+			@rsvp.response = attending ? 1 : 0
+			if !@rsvp.save then
 				@error = "We were unable to handle your RSVP."
 			end
 			
@@ -56,7 +118,7 @@ class RsvpController < ApplicationController
 							l = guests[idx]["last"].strip
 							person = Person.new(:first_name => f, :last_name => l)
 							person.save
-							guest = Guest.new(:user_id => current_user.id, :rsvp_id => rsvp.id, :person_id => person.id, :first_name => f, :last_name => l)
+							guest = Guest.new(:user_id => current_user.id, :rsvp_id => @rsvp.id, :person_id => person.id, :first_name => f, :last_name => l)
 							if guest.save then
 								puts "We saved Guest: #{f} #{l} successfully."
 							else
