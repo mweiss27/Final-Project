@@ -14,10 +14,12 @@ Rails.application.routes.draw do
 
   	get "/music/new" => "musics#new"
   	get "/music" => "musics#index"
+  	post "/" => "landing#index"
+  	post "/rsvp" => "rsvp#submit"
+    
     get 'seating' => 'seating#show'
     get 'table/:id/remove/:seat_id' => 'seating#remove'
     post 'table/:id' => 'seating#update'
-  	post "/" => "landing#index"
-  	post "/rsvp" => "rsvp#submit"
   end
+  
 end
