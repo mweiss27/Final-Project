@@ -5,16 +5,22 @@ class SeatingController < ApplicationController
     @tables = Table.all
     @users = User.all
     @guests = Guest.all
-    puts @guests.find(2).table_id
     @my_guests = current_user.guests
-    if user_signed_in?
-      render
-    else
-      redirect_to "/"
-    end
+    puts current_user.person.first_name
   end
 
-  def edit
+  def remove
+    @tables = Table.all
+    @guests = Guest.all
+    table_id = params[:id].to_i
+    seat = "guest#{params[:seat_id]}_id"
+    table = @tables.find(table_id)
+    guest = @guests.find(table.send(seat))
+    table.update(seat.to_sym => NIL)
+    table.update(free: table.free + 1)
+    guest.update(table_id: NIL)
+    redirect_to "/seating"
+    
   end
 
   def update
@@ -27,7 +33,7 @@ class SeatingController < ApplicationController
     guest = @guests.find(guest_id)
     table = @tables.find(table_id)
     #Check if this action is legit
-    if guest.user_id == current_user.id and table.send(seat) == 0 and guest.table_id == NIL
+    if guest.user_id == current_user.id and !table.send(seat) and !guest.table_id
       guest.update(table_id: table_id)
       table.update(seat.to_sym => guest_id)
       table.update(free: table.free - 1)

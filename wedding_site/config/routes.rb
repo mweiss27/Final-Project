@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => {registrations: 'registrations'} 
-  get 'seating' => 'seating#show'
-  get 'seating/edit' => 'seating#edit'
-  post 'table/:id' => 'seating#update'
 
   resources :users
   resources :musics
@@ -14,6 +11,9 @@ Rails.application.routes.draw do
   	get "/rsvp" => "rsvp#index"
   	get "/music/new" => "musics#new"
   	get "/music" => "musics#index"
+    get 'seating' => 'seating#show'
+    get 'table/:id/remove/:seat_id' => 'seating#remove'
+    post 'table/:id' => 'seating#update'
   	post "/" => "landing#index"
   	post "/rsvp" => "rsvp#submit"
   end

@@ -1,7 +1,7 @@
 <div class="panel-group" id="accordion">
   
   <% @tables.each do |table| %>
-  <% free = table.free %>
+  <% free = !table.free ? 8 : table.free %>
   
   <div class="panel panel-default">
     
@@ -45,11 +45,11 @@
               <div class="col-xs-2 col-md-1 panel panel-default">
                 <div class="panel-body">
                 <%= image_tag("chair.svg", :alt => "chair", size: "64") %>
-                <%= table.send("guest#{i + 1}_id") == 0 ? "Empty" : "#{@guests.find(table.send("guest#{i + 1}_id")).first_name} #{@guests.find(table.send("guest#{i + 1}_id")).last_name}" %>
-                <% if table.send("guest#{i + 1}_id") == 0 and valid_guests > 0 %>
+                <%= !table.send("guest#{i + 1}_id") ? "Empty" : "#{@guests.find(table.send("guest#{i + 1}_id")).first_name} #{@guests.find(table.send("guest#{i + 1}_id")).last_name}" %>
+                <% if !table.send("guest#{i + 1}_id") and valid_guests > 0 %>
                 <input type="submit" class="btn btn-success btn-xs" value="Select <%= i+1 %>" name="seat_id">
                 <% elsif @my_guests.find_by id: table.send("guest#{i + 1}_id") %>
-                <a href="#" class="btn btn-danger btn-xs" role="button">Cancel</a>
+                <a href="<%= "table/#{table.id}/remove/#{i + 1}" %>" class="btn btn-danger btn-xs" role="button">Cancel</a>
                 <% end %>
                 </div>
               </div>

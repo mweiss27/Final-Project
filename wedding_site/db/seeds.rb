@@ -8,5 +8,5 @@
 
 # Create 20 empty tables
 20.times do
-  Table.create({guest1_id:0, guest2_id:0, guest3_id:0, guest4_id:0, guest5_id:0, guest6_id:0, guest7_id:0, guest8_id:0, free:8})
+  Table.create()
 end
