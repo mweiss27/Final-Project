@@ -1,22 +1,16 @@
 class RegistrationsController < Devise::RegistrationsController
-  def new
-  	puts "Reg#new"
-    super
-  end
 
   def create
-  	puts "Reg#create"
-    # add custom create logic here
     super
-
-    @person = Person.new(:first_name => params["user"]["first_name"], :last_name => params["user"]["last_name"])
+    puts "current_user: #{current_user}"
+    @person = Person.new(:first_name => params["first_name"], :last_name => params["last_name"])
     @person.save
+    puts "current_user: #{current_user}"
     current_user.person_id = @person.id
     current_user.save
   end
 
-  def update
-  	puts "Reg#update"
-    super
+  def after_create
+    puts "AFTER CREATE"
   end
 end 
