@@ -8,76 +8,82 @@
                     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box">
                     	<form id="rsvpForm" role="form" action="/rsvp" method="post" class="f1">
                             <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-                    		<h3>RSVP (Work in Progress)</h3>
-                    		<div class="f1-steps">
-                    			<div class="f1-progress">
-                    			    <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3" style="width: 16.66%;"></div>
-                    			</div>
-                    			<div class="f1-step active">
-                    				<div class="f1-step-icon"><i class="fa fa-user"></i></div>
-                    				<p>Confirm</p>
-                    			</div>
-                    			<div class="f1-step">
-                    				<div class="f1-step-icon"><i class="fa fa-key"></i></div>
-                    				<p>Guests</p>
-                    			</div>
-                    		    <div class="f1-step">
-                    				<div class="f1-step-icon"><i class="fa fa-twitter"></i></div>
-                    				<p>Accommodations</p>
-                    			</div>
-                    		</div>
-                    		
-                    		<fieldset>
-                    			<div class="pad2">
-                    			    <label class="sr-only" for="f1-first-name">First name</label>
-                                    <input type="text" name="f1-first-name" value="<%= current_user.first_name %>" class="f1-first-name form-control" id="f1-first-name" disabled>
-                                </div>
-                                <div class="pad2">
-                                    <label class="sr-only" for="f1-last-name">Last name</label>
-                                    <input type="text" name="f1-last-name" value="<%= current_user.last_name %>"class="f1-last-name form-control" id="f1-last-name" disabled>
-                                </div>
-                                <div class="pad2">
-                                    <div class="radio">
-                                    	<label><input type="radio" name="rsvpConf" value="1" checked>Attending</label>
+                            <h3>RSVP</h3>
+                             <div id="rsvpSubmitted" style="display:<%=@alreadyDone ? 'block' : 'none' %>">
+                                <input id="editRsvpData" value="<%= @guests %>" type="hidden">
+                                <p>Your reservation has been submitted!</p>
+                                <button id="editRsvp" type="button" class="btn btn-primary">Edit Reservation</button>
+                            </div>
+                            <div id="rsvpFormTarget" style="display:<%=!@alreadyDone ? 'block' : 'none' %>">
+                                <div class="f1-steps">
+                                    <div class="f1-progress">
+                                        <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3" style="width: 16.66%;"></div>
                                     </div>
-                                    <div class="radio">
-                                    	<label><input type="radio" name="rsvpConf" value="0">Not attending</label>
+                                    <div class="f1-step activeF">
+                                        <div class="f1-step-icon"><i class="fa fa-user"></i></div>
+                                        <p>Confirm</p>
+                                    </div>
+                                    <div class="f1-step">
+                                        <div class="f1-step-icon"><i class="fa fa-key"></i></div>
+                                        <p>Guests</p>
+                                    </div>
+                                    <div class="f1-step">
+                                        <div class="f1-step-icon"><i class="fa fa-twitter"></i></div>
+                                        <p>Accommodations</p>
                                     </div>
                                 </div>
-                                <div class="f1-buttons">
-                                    <button id="initNext" type="button" class="btn btn-next">Next</button>
-                                </div>
-                            </fieldset>
 
-                            <fieldset id="guestPage">
-                                <div id="addGuest" class="btn btn-info">
-						          <span class="glyphicon glyphicon-plus"></span> Add a Guest (Max 4)
-						        </div>
-						        <div id="guests" style="overflow:auto;max-height:250px;">
-						        </div>
-                                
-                                <div class="f1-buttons">
-                                	<span id="guestErrors" style="color:red"></span>
-                                    <button type="button" class="btn btn-previous">Previous</button>
-                                    <button id="gNext" type="button" class="btn btn-next">Next</button>
-                                </div>
-                            </fieldset>
+                                <fieldset>
+                                    <div class="pad2">
+                                        <label class="sr-only" for="f1-first-name">First name</label>
+                                        <input type="text" name="f1-first-name" value="<%= current_user.first_name %>" class="f1-first-name form-control" id="f1-first-name" disabled>
+                                    </div>
+                                    <div class="pad2">
+                                        <label class="sr-only" for="f1-last-name">Last name</label>
+                                        <input type="text" name="f1-last-name" value="<%= current_user.last_name %>"class="f1-last-name form-control" id="f1-last-name" disabled>
+                                    </div>
+                                    <div class="pad2">
+                                        <div class="radio">
+                                            <label><input type="radio" name="rsvpConf" value="1" <%= @attending == nil || @attending ? 'checked' : '' %>>Attending</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" name="rsvpConf" value="0" <%= @attending == false ? 'checked' : '' %>>Not attending</label> <!-- Actually needs to be == false, because we want it to be 1 if it's nil -->
+                                        </div>
+                                    </div>
+                                    <div class="f1-buttons">
+                                        <button id="initNext" type="button" class="btn btn-next">Next</button>
+                                    </div>
+                                </fieldset>
 
-                            <fieldset>
-                                <h4>Accommodations</h4>
-                                <div class="form-group">
-                                </div>
-                                <div class="form-group">
-                                </div>
-                                <div class="form-group">
-                                </div>
-                                <div class="f1-buttons">
-                                    <button type="button" class="btn btn-previous">Previous</button>
-                                    <button type="submit" class="btn btn-submit">Submit</button>
-                                </div>
-                            </fieldset>
-                    	
-                    	</form>
+                                <fieldset id="guestPage">
+                                    <div id="addGuest" class="btn btn-info">
+                                      <span class="glyphicon glyphicon-plus"></span> Add a Guest (Max 4)
+                                    </div>
+                                    <div id="guests" style="overflow:auto;max-height:250px;">
+                                    </div>
+                                    
+                                    <div class="f1-buttons">
+                                        <span id="guestErrors" style="color:red"></span>
+                                        <button type="button" class="btn btn-previous">Previous</button>
+                                        <button id="gNext" type="button" class="btn btn-next">Next</button>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <h4>Accommodations</h4>
+                                    <div class="form-group">
+                                    </div>
+                                    <div class="form-group">
+                                    </div>
+                                    <div class="form-group">
+                                    </div>
+                                    <div class="f1-buttons">
+                                        <button type="button" class="btn btn-previous">Previous</button>
+                                        <button type="submit" class="btn btn-submit">Submit</button>
+                                    </div>
+                                </fieldset>
+                            </div>
+                	   </form>
                     </div>
                 </div>
                     

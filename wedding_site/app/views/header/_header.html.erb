@@ -1,9 +1,9 @@
  <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="/">Home</a></li>
+      <li id="homeHeader"><a href="/">Home</a></li>
       <% if user_signed_in? %>
-        <li><a href="/rsvp">RSVP</a></li>
+        <li id="rsvpHeader"><a href="/rsvp">RSVP</a></li>
       <% end %>
     </ul>
     <ul class="nav navbar-nav navbar-right">
