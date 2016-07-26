@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'seating' => 'seating#show'
   get 'seating/edit' => 'seating#edit'
-  post 'seating/update'
+  post 'table/:id' => 'seating#update'
 
   devise_for :users#, :controllers => {sessions: 'users/sessions'} 
   resources :users
