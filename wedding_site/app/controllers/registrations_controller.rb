@@ -9,8 +9,10 @@ class RegistrationsController < Devise::RegistrationsController
     # add custom create logic here
     super
 
-    @person = Person.new
+    @person = Person.new(:first_name => params["user"]["first_name"], :last_name => params["user"]["last_name"])
+    @person.save
     current_user.person_id = @person.id
+    current_user.save
   end
 
   def update

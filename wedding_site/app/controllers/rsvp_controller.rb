@@ -43,14 +43,19 @@ class RsvpController < ApplicationController
 					if guests.size > 0 then
 
 						puts "Destroying #{Guest.where(:user_id => current_user.id).length} guests"
-						Guest.where(:user_id => current_user.id).destroy_all
+						Guest.where(:user_id => current_user.id).each do |g|
+							Person.where(:id => g.person_id).destroy_all
+							g.destroy
+						end
 
 						puts "Attempting to save #{guests.size} guests."
 						guests.size.times do |i|
 							idx = (i+1).to_s
 							f = guests[idx]["first"].strip
 							l = guests[idx]["last"].strip
-							guest = Guest.new(:first_name => f, :last_name => l, :user_id => current_user.id, :rsvp_id => rsvp.id)
+							person = Person.new(:first_name => f, :last_name => l)
+							person.save
+							guest = Guest.new(:user_id => current_user.id, :rsvp_id => rsvp.id, :person_id => person.id, :first_name => f, :last_name => l)
 							if guest.save then
 								puts "We saved Guest: #{f} #{l} successfully."
 							else

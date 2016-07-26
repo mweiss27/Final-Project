@@ -1,13 +1,14 @@
 class User < ApplicationRecord
 	has_many :guests, dependent: :destroy
 	has_one :rsvp, dependent: :destroy
+	belongs_to :person
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
 
-         attr_accessor :login
+         attr_accessor :login, :first_name, :last_name
 
 	validates :username,
 		:presence => true,

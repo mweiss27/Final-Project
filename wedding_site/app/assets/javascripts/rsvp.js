@@ -207,6 +207,7 @@ $(document).ready(function() {
             addGuest();
             
             $("#guest" + (i+1) + "fn").each(function() {
+                console.log(guest);
                 this.value = guest["first_name"];
             });
             $("#guest" + (i+1) + "ln").each(function() {
