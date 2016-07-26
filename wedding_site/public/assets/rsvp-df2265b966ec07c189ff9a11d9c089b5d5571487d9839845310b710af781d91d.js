@@ -45,7 +45,7 @@ $(document).ready(function() {
         	var parent_fieldset = $(this).parents('fieldset');
         	var next_step = true;
         	// navigation steps / progress steps
-        	var current_active_step = $(this).parents('.f1').find('.f1-step.activeF');
+        	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
         	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
         	
         	// fields validation
@@ -64,7 +64,7 @@ $(document).ready(function() {
         	if( next_step ) {
         		parent_fieldset.fadeOut(400, function() {
         			// change icons
-        			current_active_step.removeClass('activeF').addClass('activated').next().addClass('activeF');
+        			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
         			// progress bar
         			bar_progress(progress_line, 'right');
         			// show next step
@@ -80,12 +80,12 @@ $(document).ready(function() {
     // previous step
     $('.f1 .btn-previous').on('click', function() {
     	// navigation steps / progress steps
-    	var current_active_step = $(this).parents('.f1').find('.f1-step.activeF');
+    	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
     	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
     	
     	$(this).parents('fieldset').fadeOut(400, function() {
     		// change icons
-    		current_active_step.removeClass('activeF').prev().removeClass('activated').addClass('activeF');
+    		current_active_step.removeClass('active').prev().removeClass('activated').addClass('active');
     		// progress bar
     		bar_progress(progress_line, 'left');
     		// show previous step
@@ -207,7 +207,6 @@ $(document).ready(function() {
             addGuest();
             
             $("#guest" + (i+1) + "fn").each(function() {
-                console.log(guest);
                 this.value = guest["first_name"];
             });
             $("#guest" + (i+1) + "ln").each(function() {

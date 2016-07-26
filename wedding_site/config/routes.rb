@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   	get "/login" => "devise/sessions#new"
   	get "/logout" => "devise/sessions#destroy"
   	get "/rsvp" => "rsvp#index"
+	get "/music/new" => "musics#new"
+	get "/music" => "musics#index"
 	post "/musics/new" => "musics#new"
   	post "/" => "landing#index"
   	post "/rsvp" => "rsvp#submit"

@@ -86,19 +86,19 @@ button.btn:hover { opacity: 0.6; color: #fff; }
 button.btn:active { outline: 0; opacity: 0.6; color: #fff; -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none; }
 button.btn:focus,
 button.btn:active:focus,
-button.btn.active:focus { outline: 0; opacity: 0.6; color: #fff; }
+button.btn.activeF:focus { outline: 0; opacity: 0.6; color: #fff; }
 
 button.btn.btn-next,
 button.btn.btn-next:focus,
-button.btn.btn-next:active:focus, button.btn.btn-next.active:focus { background: #0099cc; }
+button.btn.btn-next:active:focus, button.btn.btn-next.activeF:focus { background: #0099cc; }
 
 button.btn.btn-submit,
 button.btn.btn-submit:focus,
-button.btn.btn-submit:active:focus, button.btn.btn-submit.active:focus { background: #0099cc; }
+button.btn.btn-submit:active:focus, button.btn.btn-submit.activeF:focus { background: #0099cc; }
 
 button.btn.btn-previous,
 button.btn.btn-previous:focus,
-button.btn.btn-previous:active:focus, button.btn.btn-previous.active:focus { background: #bbb; }
+button.btn.btn-previous:active:focus, button.btn.btn-previous.activeF:focus { background: #bbb; }
 
 strong { font-weight: 500; }
 
@@ -172,13 +172,13 @@ img { max-width: 100%; }
 .f1-step.activated .f1-step-icon {
     background: #fff; border: 1px solid #0099cc; color: #0099cc; line-height: 38px;
 }
-.f1-step.active .f1-step-icon {
+.f1-step.activeF .f1-step-icon {
     width: 48px; height: 48px; margin-top: 0; background: #0099cc; font-size: 22px; line-height: 48px;
 }
 
 .f1-step p { color: #ccc; }
 .f1-step.activated p { color: #0099cc; }
-.f1-step.active p { color: #0099cc; }
+.f1-step.activeF p { color: #0099cc; }
 
 .f1 fieldset { display: none; text-align: left; }
 
