@@ -1,0 +1,32 @@
+/* line 4, /Users/lingalex/Documents/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/seating.scss */
+#accordion {
+  text-align: center;
+}
+
+/* line 8, /Users/lingalex/Documents/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/seating.scss */
+.panel-heading .panel-title {
+  font-size: 20px;
+  margin: 5px;
+}
+
+/* line 13, /Users/lingalex/Documents/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/seating.scss */
+.row .panel-default {
+  padding: 0px 0px;
+  height: 128px;
+  width: 94px;
+  margin: 5px;
+}
+
+/* line 20, /Users/lingalex/Documents/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/seating.scss */
+.row .panel-body {
+  padding: 0px 0px;
+  margin: 10px;
+}
+
+/* line 25, /Users/lingalex/Documents/No-Comment-Final-Project/wedding_site/app/assets/stylesheets/seating.scss */
+#accordion .row {
+  vertical-align: middle;
+  padding: 0px 0px;
+  max-width: 832px;
+  margin: auto;
+}
