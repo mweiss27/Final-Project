@@ -1,0 +1,39 @@
+<h2>Seating</h2>
+<% @tables.each do |table| %>
+  <tr>
+    <td><%= table.free %></td>
+    <% 8.times do |i| %>
+    <td><%= table.send("guest#{i + 1}_id") == 0 ? "Empty" : @users.find(table.send("guest#{i + 1}_id")).username %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<div class="panel-group" id="accordion">
+  
+  <% @tables.each do |table| %>
+  <% free = table.free %>
+  
+  <div class="panel panel-default">
+    
+    <div class="panel-heading">
+      <div class="progress">
+        <div class="progress-bar" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= table.id %>" role="progressbar" aria-valuenow="<%= 8 - free %>"
+        aria-valuemin="0" aria-valuemax="8" style="width:70%">
+          <%= "Table #{table.id}: #{free == 8 ? "Empty" : free == 0 ? "Full" : "#{free} / 8 Available" }" %>
+        </div>
+      </div>
+    </div>
+    
+    <div id="collapse<%= table.id %>" class="panel-collapse collapse">
+      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat.</div>
+    </div>
+    
+  </div>
+  
+  <% end %>
+  
+</div>

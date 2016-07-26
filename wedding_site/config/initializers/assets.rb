@@ -11,7 +11,7 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 
 puts "assets.rb called"
-%w(landing login user devise/sessions rsvp).each do |controller|
+%w(landing login user seating devise/sessions rsvp).each do |controller|
 	puts "Precompiling #{controller}"
   	Rails.application.config.assets.precompile += ["#{controller}.css"]
   	Rails.application.config.assets.precompile += ["#{controller}.js"]
