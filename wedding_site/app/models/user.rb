@@ -1,7 +1,7 @@
 class User < ApplicationRecord
 	has_many :guests, dependent: :destroy
 	has_one :rsvp, dependent: :destroy
-	belongs_to :person
+	belongs_to :person, optional: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
