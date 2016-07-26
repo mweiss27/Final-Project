@@ -6,8 +6,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box">
-                    	<form role="form" action="/rsvp" method="post" class="f1">
-
+                    	<form id="rsvpForm" role="form" action="/rsvp" method="post" class="f1">
+                            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
                     		<h3>RSVP (Work in Progress)</h3>
                     		<div class="f1-steps">
                     			<div class="f1-progress">
@@ -45,7 +45,7 @@
                                     </div>
                                 </div>
                                 <div class="f1-buttons">
-                                    <button type="button" class="btn btn-next">Next</button>
+                                    <button id="initNext" type="button" class="btn btn-next">Next</button>
                                 </div>
                             </fieldset>
 

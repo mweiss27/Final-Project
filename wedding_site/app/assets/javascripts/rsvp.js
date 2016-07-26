@@ -39,38 +39,42 @@ $(document).ready(function() {
     
     // next step
     $('.f1 .btn-next').on('click', function() {
-        console.log("btn-next click");
-    	var parent_fieldset = $(this).parents('fieldset');
-    	var next_step = true;
-    	// navigation steps / progress steps
-    	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
-    	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
-    	
-    	// fields validation
-    	parent_fieldset.find('input[type="text"], input[type="password"], textarea').each(function() {
-    		if( $(this).val() == "" ) {
-    			$(this).addClass('input-error');
-                $("#guestErrors").html("Required field(s) missing");
-    			next_step = false;
-    		}
-    		else {
-    			$(this).removeClass('input-error');
-    		}
-    	});
-    	// fields validation
-    	
-    	if( next_step ) {
-    		parent_fieldset.fadeOut(400, function() {
-    			// change icons
-    			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
-    			// progress bar
-    			bar_progress(progress_line, 'right');
-    			// show next step
-	    		$(this).next().fadeIn();
-	    		// scroll window to beginning of the form
-    			scroll_to_class( $('.f1'), 20 );
-	    	});
-    	}
+        if ($(this).html() == "Finish") {
+            document.getElementById("rsvpForm").submit();
+        }
+        else {
+        	var parent_fieldset = $(this).parents('fieldset');
+        	var next_step = true;
+        	// navigation steps / progress steps
+        	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
+        	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+        	
+        	// fields validation
+        	parent_fieldset.find('input[type="text"], input[type="password"], textarea').each(function() {
+        		if( $(this).val() == "" ) {
+        			$(this).addClass('input-error');
+                    $("#guestErrors").html("Required field(s) missing");
+        			next_step = false;
+        		}
+        		else {
+        			$(this).removeClass('input-error');
+        		}
+        	});
+        	// fields validation
+        	
+        	if( next_step ) {
+        		parent_fieldset.fadeOut(400, function() {
+        			// change icons
+        			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
+        			// progress bar
+        			bar_progress(progress_line, 'right');
+        			// show next step
+    	    		$(this).next().fadeIn();
+    	    		// scroll window to beginning of the form
+        			scroll_to_class( $('.f1'), 20 );
+    	    	});
+        	}
+        }
     	
     });
     
@@ -106,14 +110,16 @@ $(document).ready(function() {
     		}
     	});
     	// fields validation
+
+        console.log("Form submission");
     	
     });
 
     var template = "<div class=\"form-group\" id=\"guest%INDEX%\">\
                         <span style=\"cursor:pointer\" name=\"guestDelete\" index=\"%INDEX%\" id=\"guestDelete%INDEX%\" class=\"glyphicon glyphicon-trash\"></span>\
                             <label id=\"labGuest%INDEX%\" style=\"padding-left:3px\">Guest %INDEX%</label><br />\
-                        <input type=\"text\" placeholder=\"First name\">\
-                        <input type=\"text\" placeholder=\"Last name\">\
+                        <input type=\"text\" placeholder=\"First name\" name=\"guests[%INDEX%][first]\">\
+                        <input type=\"text\" placeholder=\"Last name\" name=\"guests[%INDEX%][last]\">\
                     </div>";
     
     var index = 1;
@@ -140,6 +146,12 @@ $(document).ready(function() {
             $("#guest" + i).attr("id", "guest" + (i-1));
         }
         index--;
+        if (index == 1) {
+            $(".input-error").each(function() {
+                $(this).removeClass("input-error");
+            });
+            $("#guestErrors").html("");
+        }
 
     });
 
@@ -153,5 +165,23 @@ $(document).ready(function() {
             }
         }
     });
+
+    $("input[name='rsvpConf']").change(function() {
+        var selected = parseInt($("input:radio[name='rsvpConf']:checked").val());
+        if (selected == 1) {
+            $("#initNext").html("Next");
+        }
+        else if (selected == 0) {
+            $("#initNext").html("Finish");
+        }
+    });
+
+    var selected = parseInt($("input:radio[name='rsvpConf']:checked").val());
+    if (selected == 1) {
+        $("#initNext").html("Next");
+    }
+    else if (selected == 0) {
+        $("#initNext").html("Finish");
+    }
     
 });
