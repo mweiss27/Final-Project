@@ -7,6 +7,16 @@ class SeatingController < ApplicationController
     current_user.person.id == pid or is_person_guest
   end
   
+  def self.desotry_reservation_by_person_id person_id
+    person = Person.find(person_id)
+    table = Table.find(person.table_id)
+    seat = "guest#{person.seat_id}_id"
+    table.update(seat.to_sym => NIL)
+    table.update(free: table.free + 1)
+    person.update(table_id: NIL)
+    person.update(seat_id: NIL)
+  end
+  
   def show
     @tables = Table.all
     @users = User.all
@@ -26,10 +36,7 @@ class SeatingController < ApplicationController
     table = @tables.find(table_id)
     person = @people.find(table.send(seat))
     if person_current_user? person.id and table.id == person.table_id and table.send(seat) == person.id
-      table.update(seat.to_sym => NIL)
-      table.update(free: table.free + 1)
-      person.update(table_id: NIL)
-      person.update(seat_id: NIL)
+      desotry_reservation_by_person_id person.id
       redirect_to "/seating"
     else
       render text: "Not allowed"

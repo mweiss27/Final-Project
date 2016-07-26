@@ -44,6 +44,7 @@ class RsvpController < ApplicationController
 
 						puts "Destroying #{Guest.where(:user_id => current_user.id).length} guests"
 						Guest.where(:user_id => current_user.id).each do |g|
+              SeatingController.desotry_reservation_by_person_id g.person.id
 							Person.where(:id => g.person_id).destroy_all
 							g.destroy
 						end
@@ -67,7 +68,10 @@ class RsvpController < ApplicationController
 				end
 			else
 				puts "Destroying #{Guest.where(:user_id => current_user.id).length} guests"
-				Guest.where(:user_id => current_user.id).destroy_all
+        SeatingController.desotry_reservation_by_person_id current_user.id
+				guests_to_destory = Guest.where(:user_id => current_user.person.id)
+        guests_to_destory.each {|g| SeatingController.desotry_reservation_by_person_id g.person.id}
+        guests_to_destory.destroy_all
 			end
 			redirect_to controller: "rsvp", action: "index"
 			return
