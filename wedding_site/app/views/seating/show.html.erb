@@ -1,7 +1,7 @@
 
 <div class="panel-group" id="accordion">
   
-  <h2 id="heading">Reserve seats</h3>
+  <h2 id="heading">Reserve Seats</h2>
   <hr class="intro-divider">
   
   <% @tables.each do |table| %>
@@ -28,7 +28,7 @@
          <div class="container">
           <div class="row">
             <form action="table/<%= table.id %>" method="post" >
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+              <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
               <div class="form-group">
                 <label>Pick your guest: 
                   <select class="form-control" name="guest">

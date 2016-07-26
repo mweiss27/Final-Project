@@ -18,7 +18,7 @@ class SeatingController < ApplicationController
   end
   
   def show
-    if Rsvp.find(current_user.rsvp_id).response == 0 then redirect_to "/rsvp" end
+    if Rsvp.find(current_user.rsvp_id).response != 1 then redirect_to "/rsvp" end
     @tables = Table.all
     @users = User.all
     @people = Person.all
@@ -28,7 +28,7 @@ class SeatingController < ApplicationController
   end
 
   def remove
-    if Rsvp.find(current_user.rsvp_id).response == 0 then redirect_to "/rsvp" end
+    if Rsvp.find(current_user.rsvp_id).response != 1 then redirect_to "/rsvp" end
     @tables = Table.all
     @people = Person.all
     table_id = params[:id].to_i
@@ -45,7 +45,7 @@ class SeatingController < ApplicationController
   end
 
   def update
-    if Rsvp.find(current_user.rsvp_id).response == 0 then redirect_to "/rsvp" end
+    if Rsvp.find(current_user.rsvp_id).response != 1 then redirect_to "/rsvp" end
     @tables = Table.all
     @people = Person.all
     table_id = params[:id].to_i
