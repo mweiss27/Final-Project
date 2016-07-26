@@ -1,1 +1,5 @@
 wedding_site/db/schema.rb
+
+wedding_site/public/assets/seating-305e51fa11288735b99298b3998e893a291fa7cd28ecf77b1425e10defc8132a.css.gz
+wedding_site/public/*
+*.gz
