@@ -3,6 +3,7 @@
 	<div class = "panel panel-default">
 		<div class = "panel-body">
 			<h1>Playlist</h1>
+			<h2><%= button_to 'Add a song to the playlist', new_music_path %>
 		</div>
 	</div>
 </div>
@@ -25,9 +26,7 @@
       				<tr>
         				<td><%= music.band %></td>
         				<td><%= music.track %></td>
-        				<td><%= link_to 'Show', music %></td>
-        				<td><%= link_to 'Edit', edit_music_path(music) %></td>
-        				<td><%= link_to 'Destroy', music, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        				<td><%= link_to 'Remove from playlist', music, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       				</tr>
     				<% end %>
   			</tbody>
@@ -37,4 +36,3 @@
 </div>
 <br>
 
-<%= link_to 'Add a song to the playlist', new_music_path %>
