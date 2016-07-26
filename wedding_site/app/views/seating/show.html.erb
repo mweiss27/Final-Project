@@ -1,4 +1,6 @@
+
 <div class="panel-group" id="accordion">
+  <h3>Choose your seat here</h3>
   
   <% @tables.each do |table| %>
   <% free = table.free %>
@@ -29,10 +31,10 @@
                 <label>Pick your guest: 
                   <select class="form-control" name="guest">
                     <% valid_guests = 0 %>
-                    <% @my_people.each do |g| %>
-                    <% if !g.table_id %>
+                    <% @my_people.each do |p| %>
+                    <% if !p.table_id %>
                     <% valid_guests += 1%>
-                    <option value ="<%= g.id %>"><%= "#{g.first_name} #{g.last_name}" %></option>
+                    <option value ="<%= p.id %>"><%= get_name_given_person_id p.id %></option>
                     <% end %>
                     <% end %>
                     <% if valid_guests == 0 %>

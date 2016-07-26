@@ -21,13 +21,15 @@ class SeatingController < ApplicationController
     @tables = Table.all
     @people = Person.all
     table_id = params[:id].to_i
-    seat = "guest#{params[:seat_id]}_id"
+    seat_id = params[:seat_id].to_i 
+    seat = "guest#{seat_id}_id"
     table = @tables.find(table_id)
     person = @people.find(table.send(seat))
     if person_current_user? person.id and table.id == person.table_id and table.send(seat) == person.id
       table.update(seat.to_sym => NIL)
       table.update(free: table.free + 1)
       person.update(table_id: NIL)
+      person.update(seat_id: NIL)
       redirect_to "/seating"
     else
       render text: "Not allowed"
@@ -40,13 +42,15 @@ class SeatingController < ApplicationController
     @people = Person.all
     table_id = params[:id].to_i
     person_id = params[:guest].to_i
-    seat = "guest#{params[:seat_id].match(/\d/)}_id"
+    seat_id = params[:seat_id].match(/\d/).to_s.to_i
+    seat = "guest#{seat_id}_id"
     puts params
     person = @people.find(person_id)
     table = @tables.find(table_id)
     #Check if this action is legit
     if person_current_user? person_id and !table.send(seat) and !person.table_id
       person.update(table_id: table_id)
+      person.update(seat_id: seat_id)
       table.update(seat.to_sym => person_id)
       table.update(free: table.free - 1)
       redirect_to "/seating"
