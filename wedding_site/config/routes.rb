@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   get 'seating' => 'seating#show'
   get 'seating/edit' => 'seating#edit'
   post 'table/:id' => 'seating#update'
+  devise_for :users, :controllers => {registrations: 'registrations'} 
 
-  devise_for :users#, :controllers => {sessions: 'users/sessions'} 
   resources :users
   resources :musics
   root to: "landing#index"
@@ -15,6 +15,11 @@ Rails.application.routes.draw do
 	get "/music/new" => "musics#new"
 	get "/music" => "musics#index"
 	post "/musics/new" => "musics#new"
+  	get "/music/new" => "musics#new"
+  	get "/music" => "musics#index"
+        get 'seating' => 'seating#show'
+	get 'table/:id/remove/:seat_id' => 'seating#remove'
+	post 'table/:id' => 'seating#update'
   	post "/" => "landing#index"
   	post "/rsvp" => "rsvp#submit"
   end

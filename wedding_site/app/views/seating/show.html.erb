@@ -1,7 +1,7 @@
 <div class="panel-group" id="accordion">
   
   <% @tables.each do |table| %>
-  <% free = table.free %>
+  <% free = !table.free ? 8 : table.free %>
   
   <div class="panel panel-default">
     
@@ -28,23 +28,28 @@
               <div class="form-group">
                 <label>Pick your guest: 
                   <select class="form-control" name="guest">
-                     <% @my_guests.each do |g| %>
-                     <% if !g.table_id %>
-                     <option value ="<%= g.id %>"><%= "#{g.first_name} #{g.last_name}" %></option>
-                     <% end %>
-                     <% end %>
+                    <% valid_guests = 0 %>
+                    <% @my_guests.each do |g| %>
+                    <% if !g.table_id %>
+                    <% valid_guests += 1%>
+                    <option value ="<%= g.id %>"><%= "#{g.first_name} #{g.last_name}" %></option>
+                    <% end %>
+                    <% end %>
+                    <% if valid_guests == 0 %>
+                    <option>All your guests are assigned</option>
+                    <% end %>
                   </select>
                 </label>
               </div>
               <% 8.times do |i| %>
               <div class="col-xs-2 col-md-1 panel panel-default">
                 <div class="panel-body">
-                <%= image_tag("chair.png", :alt => "chair") %>
-                <%= table.send("guest#{i + 1}_id") == 0 ? "Empty" : "#{@guests.find(table.send("guest#{i + 1}_id")).first_name} #{@guests.find(table.send("guest#{i + 1}_id")).last_name}" %>
-                <% if table.send("guest#{i + 1}_id") == 0 and @my_guests.find_by table_id: NIL %>
+                <%= image_tag("chair.svg", :alt => "chair", size: "64") %>
+                <%= !table.send("guest#{i + 1}_id") ? "Empty" : "#{@guests.find(table.send("guest#{i + 1}_id")).first_name} #{@guests.find(table.send("guest#{i + 1}_id")).last_name}" %>
+                <% if !table.send("guest#{i + 1}_id") and valid_guests > 0 %>
                 <input type="submit" class="btn btn-success btn-xs" value="Select <%= i+1 %>" name="seat_id">
                 <% elsif @my_guests.find_by id: table.send("guest#{i + 1}_id") %>
-                <a href="#" class="btn btn-danger btn-xs" role="button">Cancel</a>
+                <a href="<%= "table/#{table.id}/remove/#{i + 1}" %>" class="btn btn-danger btn-xs" role="button">Cancel</a>
                 <% end %>
                 </div>
               </div>
