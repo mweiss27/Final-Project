@@ -10,7 +10,11 @@
                                 <input id="editRsvpData" type="hidden">
                                 <p>Your reservation has been submitted!</p>
                                 <button id="editRsvp" type="button" class="btn btn-primary">Edit Reservation</button>
-                                <button id="selectSeats" type="button" class="btn btn-primary">Select Seats</button>
+                                <button id="selectSeats" type="button" class="btn btn-primary"
+                                <% r = Rsvp.find_by_user_id(current_user.id); if r == nil or r.response != 1 then %>
+                                style="display: none;"
+                                <% end %>
+                                >Select Seats</button>
                             </div>
                             <div id="rsvpFormTarget" style="display:<%=!@alreadyDone ? 'block' : 'none' %>">
                                 <div class="f1-steps">
