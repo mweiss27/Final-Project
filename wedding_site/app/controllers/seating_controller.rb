@@ -18,16 +18,17 @@ class SeatingController < ApplicationController
   end
   
   def show
+    if Rsvp.find(current_user.rsvp_id).response != 1 then redirect_to "/rsvp" end
     @tables = Table.all
     @users = User.all
     @people = Person.all
     @my_people = []
     @my_people.push(current_user.person)
     current_user.guests.each{|guest| @my_people.push(guest.person)}
-    puts @mypeople
   end
 
   def remove
+    if Rsvp.find(current_user.rsvp_id).response != 1 then redirect_to "/rsvp" end
     @tables = Table.all
     @people = Person.all
     table_id = params[:id].to_i
@@ -36,22 +37,21 @@ class SeatingController < ApplicationController
     table = @tables.find(table_id)
     person = @people.find(table.send(seat))
     if person_current_user? person.id and table.id == person.table_id and table.send(seat) == person.id
-      desotry_reservation_by_person_id person.id
+      SeatingController.desotry_reservation_by_person_id person.id
       redirect_to "/seating"
     else
       render text: "Not allowed"
     end
-    
   end
 
   def update
+    if Rsvp.find(current_user.rsvp_id).response != 1 then redirect_to "/rsvp" end
     @tables = Table.all
     @people = Person.all
     table_id = params[:id].to_i
     person_id = params[:guest].to_i
     seat_id = params[:seat_id].match(/\d/).to_s.to_i
     seat = "guest#{seat_id}_id"
-    puts params
     person = @people.find(person_id)
     table = @tables.find(table_id)
     #Check if this action is legit

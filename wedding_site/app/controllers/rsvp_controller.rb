@@ -140,7 +140,6 @@ class RsvpController < ApplicationController
 		# 	if !@rsvp.save then
 		# 		@error = "We were unable to handle your RSVP."
 		# 	end
-			
 		# 	name = "#{current_user.first_name} #{current_user.last_name}"
 		# 	if attending then
 		# 		guests = params[:guests]
@@ -173,10 +172,10 @@ class RsvpController < ApplicationController
 		# 		end
 		# 	else
 		# 		puts "Destroying #{Guest.where(:user_id => current_user.id).length} guests"
-  #       SeatingController.desotry_reservation_by_person_id current_user.id
+		#       SeatingController.desotry_reservation_by_person_id current_user.id
 		# 		guests_to_destory = Guest.where(:user_id => current_user.person.id)
-  #       guests_to_destory.each {|g| SeatingController.desotry_reservation_by_person_id g.person.id}
-  #       guests_to_destory.destroy_all
+		#       guests_to_destory.each {|g| SeatingController.desotry_reservation_by_person_id g.person.id}
+		#       guests_to_destory.destroy_all
 		# 	end
 		# 	redirect_to controller: "rsvp", action: "index"
 		# 	return
