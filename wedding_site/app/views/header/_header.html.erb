@@ -5,7 +5,7 @@
       <% if user_signed_in? %>
         <li id="rsvpHeader"><a href="/rsvp">RSVP</a></li>
         <li id="seatingHeader"
-        <% unless Rsvp.find_by_user_id(current_user.id) and Rsvp.find_by_user_id(current_user.id).response == 1 %>
+        <% unless current_user.rsvp_id and Rsvp.find(current_user.rsvp_id).response == 1 %>
         style="display: none;"
         <% end %>
          ><a href="/seating">Seating</a></li>
