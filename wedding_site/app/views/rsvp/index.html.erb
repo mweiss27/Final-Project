@@ -51,7 +51,7 @@
                                       <span class="glyphicon glyphicon-plus"></span> Add a Guest (Max 4)
                                     </div>
                                     <div id="guests" style="overflow:auto;max-height:250px;">
-                                        <%= render :partial => "/rsvp/guests", :locals => { :guests => gather_guests }%>
+                                        <%= render :partial => "/rsvp/guests", :locals => { :guests => gather_guests, :cache => @cache }%>
                                     </div>
                                     
                                     <div class="f1-buttons">

@@ -133,6 +133,29 @@ $(document).ready(function() {
     });
 
     $("#guests").on("blur", "input[type='text']", function() {
+        var data = new Object();
+        data.guests = [];
+        $("[name='guestContainer']").each(function() {
+            var index = this.getAttribute("index");
+            data.guests[index] = new Object();
+            $(this).children("input[type='text']").each(function() {
+                console.log("Found a child input field for this Guest.");
+                if (this.getAttribute("for") == "first_name") {
+                    data.guests[index].first_name = $(this).val();
+                }
+                else if (this.getAttribute("for") == "last_name") {
+                    data.guests[index].last_name = $(this).val();
+                }
+            });
+        });
+        var data = JSON.stringify(data);
+        $.ajax({
+            url: "/rsvp/save_guests",
+            type: "POST",
+            data: { data },
+            success: function(resp){ console.log("AJAX Success. Response: " + resp); }
+        });
+
         if( $(this).val() != "" ) {
             $(this).removeClass('input-error');
             if ($(".input-error").length == 0) {
