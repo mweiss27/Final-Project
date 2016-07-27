@@ -26,7 +26,12 @@
       				<tr>
         				<td><%= music.band %></td>
         				<td><%= music.track %></td>
-	        			<td><%= link_to 'Remove from playlist', music, method: :delete, data: { confirm: 'Are you sure?'} %></td>
+					<% if music.requestName == current_user.username %>
+	        				<td><%= link_to 'Remove from playlist', music, method: :delete, data: { confirm: 'Are you sure?'} %></td>
+					<% else %>
+						<td></td>
+					<% end %>
+
       				</tr>
     				<% end %>
   			</tbody>
