@@ -1,3 +1,5 @@
+# Date: 07/22/2016
+# Author: Matt
 require "json"
 
 class RsvpController < ApplicationController

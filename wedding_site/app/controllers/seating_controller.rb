@@ -1,3 +1,5 @@
+# Date: 07/22/2016
+# Author: Ziman Ling
 class SeatingController < ApplicationController
   before_action :authenticate_user!
   before_action :check_rsvp
