@@ -1,0 +1,6 @@
+class AddUserNameToMusics < ActiveRecord::Migration[5.0]
+  def change
+    remove_column :musics, :User, :string
+    remove_column :musics, :name, :string
+  end
+end

@@ -1,3 +1,4 @@
+#Author: Robert Reilly
 class MusicsController < ApplicationController
  before_action :define_object, only: [:show, :edit, :update, :destroy]
  before_action :require_login
@@ -10,25 +11,26 @@ class MusicsController < ApplicationController
 
 	def create
 		@music = Music.new(music_params)
-		respond_to do |format|
+		@music.requestName = current_user.username
 	   		if @music.save
-				format.html{redirect_to @music, notice: "Entry successfully added to playlist"}
-				format.json { render :index, status: :created, location: @music}
+				redirect_to '/musics', notice: "Your entry has been successfully added to the playlist."
+			else
+				redirect_to '/musics', notice: "Your song already exists in the playist, no changes were made to the playlist."
 	   		end
-		end
 	end
 
 	def music_params
-		params.require(:music).permit(:band, :track)
+		params.require(:music).permit(:band, :track, :requestName)
 	end
 
 	def destroy
-		@music.destroy
-		respond_to do |format|
-			
-				format.html{redirect_to @music, notice: "Entry successfully removed from playlist"}
-				format.json {render :index, status: created, location: @music}
+		if current_user.username == @music.requestName
+			@music.destroy
+			redirect_to '/musics', notice:'Your song has been successfully removed from the playlist'
+		else
+			redirect_to '/musics', notice:'You did not add this song to the playlist, you can not remove it.'
 		end
+			
 	end
 
 	def define_object
