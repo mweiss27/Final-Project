@@ -4,6 +4,7 @@
   <h2 id="heading">Reserve Seats</h2>
   <hr class="intro-divider">
   
+  <% # Drawing every table %>
   <% @tables.each do |table| %>
   <% free = table.free %>
   
@@ -12,9 +13,11 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= table.id %>">
+          <% # Drawing the accordion header %>
         <%= "Table #{table.id}: #{free == 8 ? "Empty" : free == 0 ? "Full" : "#{free} openning#{ free != 1 ? 's' : ''}"}" %></a>
       </h4>
       <div class="progress">
+        <% # Drawing the progress bar which has color depends on how full the table is %>
         <% percent = number_to_percentage((8 - free) / 8.0 * 100) %>
         <div class="progress-bar <%= free > 2 ? "progress-bar-success" : free == 0 ? "progress-bar-danger" : "progress-bar-warning" %>" role="progressbar" aria-valuenow="<%= 8 - free %>"
         aria-valuemin="0" aria-valuemax="8" style="width:<%= percent %>">
@@ -27,13 +30,16 @@
       <div class="panel-body">
          <div class="container">
           <div class="row">
+            <% # Drawing a form of selection %>
             <form action="table/<%= table.id %>" method="post" >
               <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
               <div class="form-group">
                 <label>Pick your guest: 
                   <select class="form-control" name="guest">
+                    <% # Iterate through every guest %>
                     <% valid_guests = 0 %>
                     <% @my_people.each do |p| %>
+                    <% # Check if the guest has no reservation %>
                     <% if !p.table_id %>
                     <% valid_guests += 1%>
                     <option value ="<%= p.id %>"><%= get_name_given_person_id p.id %></option>
@@ -45,17 +51,21 @@
                   </select>
                 </label>
               </div>
+              <% # 8 seats for a table %>
               <% 8.times do |i| %>
               <div class="col-xs-2 col-md-1 panel panel-default">
                 <div class="panel-body">
                 <%= image_tag("chair.svg", :alt => "chair", size: "64") %>
                 <% occupied_by = table.send("guest#{i + 1}_id") %>
                 <div class = "people-name">
+                <% # Generate who occupies the seat %>
                 <%= !occupied_by ? "Empty" : get_name_given_person_id(table.send("guest#{i + 1}_id")) %>
                 </div>
                 <% if !occupied_by and valid_guests > 0 %>
+                <% # Generate the submit button with differernt value for each seat %>
                 <input type="submit" class="btn btn-success btn-xs panel-btn" value="Select <%= i+1 %>" name="seat_id">
                 <% elsif person_current_user? table.send("guest#{i + 1}_id") %>
+                <% # Generate the cancel button if the seat is occupied by one of @my_guests %>
                 <a href="<%= "table/#{table.id}/remove/#{i + 1}" %>" class="btn btn-danger btn-xs panel-btn" role="button">Cancel</a>
                 <% end %>
                 </div>

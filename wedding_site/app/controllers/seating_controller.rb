@@ -2,11 +2,17 @@ class SeatingController < ApplicationController
   before_action :authenticate_user!
   helper_method :person_current_user?
   
+  # Date: 07/26/2016
+  # Author: Ziman Ling
+  # Takes an id of a person as paramter, returns if that person is related to the current user
   def person_current_user? pid
     is_person_guest = (current_user.guests.find_by person_id: pid) ? true : false
     current_user.person.id == pid or is_person_guest
   end
   
+  # Date: 07/26/2016
+  # Author: Ziman Ling
+  # Takes an id of a person as paramter, cancels his/her seating reservation
   def self.desotry_reservation_by_person_id person_id
     person = Person.find(person_id)
     if person.table_id and person.seat_id then
