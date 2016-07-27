@@ -1,0 +1,3 @@
+For this project, because of it is a web app mostly about the view, we are doing mostly the integration testing from a user's perspective.
+Not only we test our own code, we test code written by other teammates so we can find more issues in our implementation and provide suggestion to the team.
+We have also done some extreme test like trying to delete a song added by other user or trying to book a seat for a person that is not related to you.
