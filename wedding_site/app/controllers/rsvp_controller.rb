@@ -2,7 +2,7 @@ require "json"
 
 class RsvpController < ApplicationController
 	before_action :authenticate_user!
-	helper_method :gather_guests
+	helper_method :gather_guests, :gather_choices, :get_selection_for_guest, :get_person_for_guest
 
 	def initialize
 		super
@@ -19,6 +19,7 @@ class RsvpController < ApplicationController
 		rsvp = Rsvp.find_by_user_id(current_user.id)
 		@alreadyDone = rsvp != nil
 
+		@attending = nil
 		if @alreadyDone then
 			response = rsvp.response
 			@attending = response == 1
@@ -35,7 +36,6 @@ class RsvpController < ApplicationController
 		@cache = @@cache[current_user.id]
 		
 		puts ("rsvp = #{rsvp == nil ? 'nil' : rsvp}")
-		@attending = nil
 		
 		# puts "Creating @guestsA"
 		# @guestsA = []
@@ -105,15 +105,24 @@ class RsvpController < ApplicationController
 	#Save our temporary state
 	def save_guests
 		puts "SAVE GUESTS"
-		puts "params: #{params["data"]}"
-		#  params: {"guests":[null,{"first_name":"Matt2","last_name":"Weiss"}]}
-		guests = params["data"]["guests"]
-		c = @@cache[current_user.id]
-		(1..c.length).step(1) do |i|
-			if c[i] != nil then
-				c[i]["person"].first_name = guests[i]["first_name"]
-				c[i]["person"].last_name = guests[i]["last_name"]
+		if params["data"] != nil then
+			json_o = JSON.parse(params["data"])
+			guests = json_o["guests"]
+			puts "guests: #{guests}"
+			puts "@@cache: #{@@cache}"
+			c = @@cache[current_user.id]
+			puts "c: #{c}"
+			(1..c.length).step(1) do |i|
+				if c[i] != nil then
+					puts "c[#{i}] exists."
+					puts "We were passed first_name: #{guests[i]["first_name"]} and last_name: #{guests[i]["last_name"]}"
+					c[i]["person"].first_name = guests[i]["first_name"]
+					c[i]["person"].last_name = guests[i]["last_name"]
+				else
+					puts "c[#{i}] is nil"
+				end
 			end
+			puts "@@cache[user]: #{@@cache[current_user.id]}"
 		end
 	end
 
@@ -121,6 +130,18 @@ class RsvpController < ApplicationController
 		respond_to do |format|
 	        format.html { render :partial => "/rsvp/guests", :locals => { :guests => gather_guests, :cache => @@cache[current_user.id] } }
 	        format.js
+		end
+	end
+
+	def update_choices
+		respond_to do |format|
+			format.html { render :partial => "/rsvp/guestChoices", :locals => { :guests => gather_guests, :choices => gather_choices } }
+		end
+	end
+
+	def update_user_choice
+		respond_to do |format|
+			format.html { render :partial => "/rsvp/userChoice", :locals => { :choices => gather_choices } }
 		end
 	end
 
@@ -140,26 +161,81 @@ class RsvpController < ApplicationController
 		guests
 	end
 
+	def gather_choices 
+		Accommodation.all
+	end
+
 	def clean_guests
 		ours = @@cache[current_user.id]
 		ours.pop until ours.empty? or ours.last
 	end
 
+	def get_accommodation_id_for selection
+		acc = Accommodation.find_by_name(selection)
+		if acc != nil then
+			return acc.id
+		end
+		puts "NO ACCOMMODATION FOUND FOR #{selection}"
+		return -1
+	end
+
+	def get_selection_for_guest(guest)
+		puts "get_selection_for_guest: #{guest}"
+		idx = 0
+		(1..4).step(1) do |i|
+			c = @@cache[current_user.id][i]
+			if c and c["guest"] == guest then idx = i end
+		end
+		if guest.person or idx != 0 then
+			puts "idx: #{idx}"
+			person=nil
+			if guest.person == nil then
+				puts "printing cache"
+				puts "#{@@cache[current_user.id][idx]}"
+				person = @@cache[current_user.id][idx]["person"]
+			else
+				person = guest.person
+			end
+			puts "person: #{person}"
+			choice = AccommodationChoice.find_by_person_id(person.id)
+			if choice == nil then choice = "Steak"
+			else choice = choice.accommodation.name
+			end
+			puts "Returning #{choice}"
+			return choice
+		end
+		puts "We didn't find anything!"
+		"Steak"
+	end
+
+	def get_person_for_guest guest
+		if guest.person then return guest.person end
+
+		idx = 0
+		(1..4).step(1) do |i|
+			c = @@cache[current_user.id][i]
+			if c and c["guest"] == guest then idx = i end
+		end
+		@@cache[current_user.id][idx]["person"]
+	end
+
 	def submit
 		puts "SUBMIT. HASH: #{self.object_id}"
 		conf = params[:rsvpConf].strip
+		guest_specific = params[:guest_specific]
+
 		attending = conf != nil && conf.to_i == 1
 		rsvp = Rsvp.find_by_user_id(current_user.id)
 		if rsvp == nil then
 			rsvp = Rsvp.new(:user_id => current_user.id)
 		end
 		current_user.rsvp_id = rsvp.id
+		current_user.guest_specific = guest_specific != nil and guest_specific == "on" ? 1 : 0
+
 		current_user.save
 		rsvp.response = attending ? 1 : 0
 		if rsvp != nil then
 			rsvp.save
-		else
-			puts "RSVP IS NIL!?"
 		end
 		if !attending then
 				puts "Destroying #{Guest.where(:user_id => current_user.id).length} guests"
@@ -192,59 +268,43 @@ class RsvpController < ApplicationController
 				end
 				if !found then
 					puts "We didn't find #{gSaved.person.first_name} attached to a User. Destroying"
+					SeatingController.desotry_reservation_by_person_id gSaved.person.id
 					gSaved.destroy
 				end
 			end
+
+			user_selected = params["userChoice"]
+			puts "user_selected: #{user_selected}"
+
+			if current_user.guest_specific == 1 then
+				user_choice = AccommodationChoice.find_by_person_id(current_user.person.id)
+				user_choice ||= AccommodationChoice.new(:person_id => current_user.person.id, :accommodation_id => get_accommodation_id_for(user_selected))
+				user_choice.accommodation_id = get_accommodation_id_for(user_selected)
+				user_choice.save
+
+				guest_selections = params["guestChoice"] #{"1"=>"Steak"}
+				current_user.guests.each_with_index do |g, i|
+					g_selected = guest_selections[(i+1).to_s]
+					puts "g_selected: #{g_selected}"
+					g_choice = AccommodationChoice.find_by_person_id(g.person.id)
+					g_choice ||= AccommodationChoice.new(:person_id => g.person.id, :accommodation_id => get_accommodation_id_for(g_selected))
+					g_choice.accommodation_id = get_accommodation_id_for(g_selected)
+					g_choice.save
+				end
+
+			else
+				current_user.guests.each_with_index do |g, i|
+					AccommodationChoice.where(:person_id => g.person.id).destroy_all
+				end
+				user_choice = AccommodationChoice.find_by_person_id(current_user.person.id)
+				user_choice ||= AccommodationChoice.new(:person_id => current_user.person.id, :accommodation_id => get_accommodation_id_for(user_selected))
+				user_choice.accommodation_id = get_accommodation_id_for(user_selected)
+				user_choice.save
+			end
+
 		end
 		redirect_to controller: "rsvp", action: "index"
 		return
-
-		# 
-		# 
-		# if conf != nil then
-			
-		# 	@rsvp.response = attending ? 1 : 0
-		# 	if !@rsvp.save then
-		# 		@error = "We were unable to handle your RSVP."
-		# 	end
-		# 	name = "#{current_user.first_name} #{current_user.last_name}"
-		# 	if attending then
-		# 		guests = params[:guests]
-		# 		if guests != nil then
-		# 			if guests.size > 0 then
-
-		# 				puts "Destroying #{Guest.where(:user_id => current_user.id).length} guests"
-		# 				Guest.where(:user_id => current_user.id).each do |g|
-  #             				SeatingController.desotry_reservation_by_person_id g.person.id
-		# 					Person.where(:id => g.person_id).destroy_all
-		# 					g.destroy
-		# 				end
-
-		# 				puts "Attempting to save #{guests.size} guests."
-		# 				guests.size.times do |i|
-		# 					idx = (i+1).to_s
-		# 					f = guests[idx]["first"].strip
-		# 					l = guests[idx]["last"].strip
-		# 					person = Person.new(:first_name => f, :last_name => l)
-		# 					person.save
-		# 					guest = Guest.new(:user_id => current_user.id, :rsvp_id => @rsvp.id, :person_id => person.id, :first_name => f, :last_name => l)
-		# 					if guest.save then
-		# 						puts "We saved Guest: #{f} #{l} successfully."
-		# 					else
-		# 						puts "We failed to save Guest: #{f} #{l}"
-		# 						@error = "We were unable to register #{f} #{l} as a guest."
-		# 					end
-		# 				end
-		# 			end
-		# 		end
-		# 	else
-		# 		puts "Destroying #{Guest.where(:user_id => current_user.id).length} guests"
-		#       SeatingController.desotry_reservation_by_person_id current_user.id
-		# 		guests_to_destory = Guest.where(:user_id => current_user.person.id)
-		#       guests_to_destory.each {|g| SeatingController.desotry_reservation_by_person_id g.person.id}
-		#       guests_to_destory.destroy_all
-		# 	end
-		# end
 	end
 
 end

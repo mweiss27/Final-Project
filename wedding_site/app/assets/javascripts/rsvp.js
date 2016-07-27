@@ -48,6 +48,10 @@ $(document).ready(function() {
         	var current_active_step = $(this).parents('.f1').find('.f1-step.activeF');
         	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
         	
+
+            $("#choiceGuests").load("/rsvp/update_choices");
+            $("#choiceUser").load("/rsvp/update_user_choice");
+
         	// fields validation
         	parent_fieldset.find('input[type="text"], input[type="password"], textarea').each(function() {
         		if( $(this).val() == "" ) {
@@ -229,15 +233,22 @@ $(document).ready(function() {
     $("#editRsvp").on("click", function() {
         $("#rsvpSubmitted").hide();
         $("#rsvpFormTarget").show();
+    });
 
-        $("#test").load("/rsvp/list_guests");
+    $("#selectSeats").on("click", function() {
+        window.location.href = '/seating';
     });
 
     $("#choiceSpecific").change(function() {
         console.log("Changed!");
         var on = $(this).prop('checked');
         if (on) {
-
+            $("#choiceGuests").css("display", "inline");
+            $("#primChoiceL").html($("#primChoiceL").attr("user-name"));
+        }
+        else {
+            $("#choiceGuests").css("display", "none");
+            $("#primChoiceL").html("Choice")
         }
     });
 

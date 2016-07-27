@@ -1,5 +1,5 @@
         <!-- Top content -->
-        <div class="top-content intro-header">
+        <div class="top-content intro-header" style="overflow:hidden;position:fixed;width:100%">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box">
@@ -10,6 +10,7 @@
                                 <input id="editRsvpData" type="hidden">
                                 <p>Your reservation has been submitted!</p>
                                 <button id="editRsvp" type="button" class="btn btn-primary">Edit Reservation</button>
+                                <button id="selectSeats" type="button" class="btn btn-primary">Select Seats</button>
                             </div>
                             <div id="rsvpFormTarget" style="display:<%=!@alreadyDone ? 'block' : 'none' %>">
                                 <div class="f1-steps">
@@ -63,18 +64,17 @@
 
                                 <fieldset>
                                     <h4>Choices: <% @choices.each_with_index do |c, i| %> <%= c.name + (i != @choices.length-1 ? ', ' : '') %> <% end %></h4>
-                                    <h4 style="padding-right:10px; display:inline;">Guest-specific choices?</h4><input id="choiceSpecific" data-toggle="toggle" type="checkbox" data-on="Yes" data-off="No">
-                                    <div id="guests" style="overflow:auto;max-height:250px;">
+                                    <h4 style="padding-right:10px; display:inline;">Guest-specific choices?</h4>
+                                    <input <%= current_user.guest_specific == 1 ? "checked" : "" %> id="choiceSpecific" data-toggle="toggle" type="checkbox" data-on="Yes" data-off="No" name="guest_specific">
+                                    <div id="guests" style="overflow:auto;max-height:250px; padding-top: 20px;"display:<%=@current_user.guest_specific == 1 ? 'block' : 'none' %>>
                                         <div id="choiceUser">
-                                            <label style="padding-left:3px; display:inline"><%= current_user.person.first_name + " " + current_user.person.last_name %></label>
-
-                                            <select class="form-control" style="width:50%; margin-top:5px; margin-left: 10px; display:inline">
-                                                <% @choices.each do |c| %>
-                                                    <option value="<%= c.name %>"><%= c.name %></option>
-                                                <% end %>
-                                            </select>
+                                            <%= render :partial => "/rsvp/userChoice", :locals => { :choices => gather_choices }%>
                                         </div>
                                         
+                                        <div id="choiceGuests" style="display:<%= current_user.guest_specific == 1 ? 'block' : 'none' %>">
+                                            <%= render :partial => "/rsvp/guestChoices", :locals => { :guests => gather_guests, :choices => gather_choices }%>
+                                        </div>
+
                                     <div>
                                     <div class="f1-buttons" style="margin-top:10px;">
                                         <button type="button" class="btn btn-previous">Previous</button>

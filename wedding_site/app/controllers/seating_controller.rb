@@ -1,7 +1,15 @@
 class SeatingController < ApplicationController
   before_action :authenticate_user!
+  before_action :check_rsvp
   helper_method :person_current_user?
   
+  def check_rsvp
+    r = Rsvp.find_by_user_id(current_user.id)
+    if r == nil then
+      redirect_to "/rsvp"
+    end
+  end
+
   def person_current_user? pid
     is_person_guest = (current_user.guests.find_by person_id: pid) ? true : false
     current_user.person.id == pid or is_person_guest

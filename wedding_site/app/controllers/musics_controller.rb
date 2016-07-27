@@ -1,7 +1,8 @@
 #Author: Robert Reilly
 class MusicsController < ApplicationController
  before_action :define_object, only: [:show, :edit, :update, :destroy]
- before_action :require_login
+	before_action :authenticate_user!
+	before_action :check_rsvp
 	def index
 		@music = Music.all
 	end
@@ -18,6 +19,17 @@ class MusicsController < ApplicationController
 				redirect_to '/musics', notice: "Your song already exists in the playist, no changes were made to the playlist."
 	   		end
 	end
+
+def check_rsvp
+    r = Rsvp.find_by_user_id(current_user.id)
+    if r == nil then
+      redirect_to "/rsvp"
+     else
+     	if r.response != 1 then
+     		redirect_to "/rsvp"
+     	end
+    end
+  end
 
 	def music_params
 		params.require(:music).permit(:band, :track, :requestName)

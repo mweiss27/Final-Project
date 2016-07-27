@@ -230,3 +230,9 @@ only screen and (                min-resolution: 2dppx) {
     }
     
 }
+
+.center-v {
+        position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+}

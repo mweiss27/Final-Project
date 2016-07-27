@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-sm-3">
+        <label id="primChoiceL" class="center-v" style="padding-left:3px; display:inline" user-name="<%= current_user.person.first_name + " " + current_user.person.last_name %>"><%= current_user.guest_specific == 1 ? (current_user.person.first_name + " " + current_user.person.last_name) : "Choice" %></label>
+    </div>
+    <div class="col-sm-9">
+        <select class="form-control center-v" style="width:50%; margin-top:5px; margin-left: 10px; display:inline" name="userChoice">
+            <% choices.each do |c| %>
+                <option value="<%= c.name %>" <%puts "user_selected: #{get_selection_for_guest(current_user)}"%><%= get_selection_for_guest(current_user) == c.name ? "selected=1" : ""%>><%= c.name %></option>
+            <% end %>
+        </select>
+    </div>
+</div>

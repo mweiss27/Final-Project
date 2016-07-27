@@ -11,7 +11,7 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 
 puts "assets.rb called"
-%w(landing login user seating devise/sessions rsvp music).each do |controller|
+%w(landing login user seating devise/sessions rsvp musics).each do |controller|
 	puts "Precompiling #{controller}"
   	Rails.application.config.assets.precompile += ["#{controller}.css"]
   	Rails.application.config.assets.precompile += ["#{controller}.js"]
@@ -19,6 +19,7 @@ end
 
 Rails.application.config.assets.precompile += ["jquery.backstretch.min.js"]
 Rails.application.config.assets.precompile += ["retina-1.1.0.min.js"]
+Rails.application.config.assets.precompile += ["javascripts/musics.js"]
 Rails.application.config.assets.precompile += ["musics.css"]
 Rails.application.config.assets.precompile += ["bootstrap_toggle.css"]
 Rails.application.config.assets.precompile += ["bootstrap_toggle.js"]

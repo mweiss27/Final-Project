@@ -1,0 +1,15 @@
+<% guests.each_with_index do |g, i| %>
+<% puts "Rendering choice for #{g}. Saved choice: #{get_selection_for_guest(g)}" %>
+	<div class="row">
+		<div class="col-sm-3">
+			<label class="center-v" style="padding-left:3px; display:inline"><%= p = get_person_for_guest(g); p.first_name + " " + p.last_name %></label>
+		</div>
+		<div class="col-sm-9">
+			<select class="form-control center-v" style="width:50%; margin-top:5px; margin-left: 10px; display:inline" name="guestChoice[<%=i+1%>]">
+			    <% choices.each do |c| %>
+			        <option value="<%= c.name %>" <%= get_selection_for_guest(g) == c.name ? "selected=1" : ""%>><%= c.name %></option>
+			    <% end %>
+			</select>
+		</div>
+	</div>
+<% end %>
