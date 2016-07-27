@@ -50,11 +50,13 @@
                 <div class="panel-body">
                 <%= image_tag("chair.svg", :alt => "chair", size: "64") %>
                 <% occupied_by = table.send("guest#{i + 1}_id") %>
+                <div class = "people-name">
                 <%= !occupied_by ? "Empty" : get_name_given_person_id(table.send("guest#{i + 1}_id")) %>
+                </div>
                 <% if !occupied_by and valid_guests > 0 %>
-                <input type="submit" class="btn btn-success btn-xs" value="Select <%= i+1 %>" name="seat_id">
+                <input type="submit" class="btn btn-success btn-xs panel-btn" value="Select <%= i+1 %>" name="seat_id">
                 <% elsif person_current_user? table.send("guest#{i + 1}_id") %>
-                <a href="<%= "table/#{table.id}/remove/#{i + 1}" %>" class="btn btn-danger btn-xs" role="button">Cancel</a>
+                <a href="<%= "table/#{table.id}/remove/#{i + 1}" %>" class="btn btn-danger btn-xs panel-btn" role="button">Cancel</a>
                 <% end %>
                 </div>
               </div>
