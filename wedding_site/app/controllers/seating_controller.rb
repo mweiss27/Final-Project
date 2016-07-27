@@ -7,6 +7,10 @@ class SeatingController < ApplicationController
     r = Rsvp.find_by_user_id(current_user.id)
     if r == nil then
       redirect_to "/rsvp"
+     else
+      if r.response != 1 then
+        redirect_to "/rsvp"
+      end
     end
   end
 
@@ -40,7 +44,6 @@ class SeatingController < ApplicationController
   # Author: Ziman Ling
   # The rails controller method to show the seating page
   def show
-    if Rsvp.find(current_user.rsvp_id).response != 1 then redirect_to "/rsvp" end
     @tables = Table.all
     #@users = User.all
     #@people = Person.all
@@ -59,7 +62,6 @@ class SeatingController < ApplicationController
   # Author: Ziman Ling
   # The rails controller method that handles the calcel button
   def remove
-    if Rsvp.find(current_user.rsvp_id).response != 1 then redirect_to "/rsvp" end
     @tables = Table.all
     @people = Person.all
     table_id = params[:id].to_i
@@ -83,7 +85,6 @@ class SeatingController < ApplicationController
   # Author: Ziman Ling
   # The controller method to registering a seat reservation
   def update
-    if Rsvp.find(current_user.rsvp_id).response != 1 then redirect_to "/rsvp" end
     @tables = Table.all
     @people = Person.all
     table_id = params[:id].to_i
