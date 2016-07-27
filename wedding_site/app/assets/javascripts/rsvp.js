@@ -111,13 +111,6 @@ $(document).ready(function() {
     	// fields validation
 
     });
-
-    var template = "<div class=\"form-group\" id=\"guest%INDEX%\">\
-                        <span style=\"cursor:pointer\" name=\"guestDelete\" index=\"%INDEX%\" id=\"guestDelete%INDEX%\" class=\"glyphicon glyphicon-trash\"></span>\
-                            <label id=\"labGuest%INDEX%\" style=\"padding-left:3px\">Guest %INDEX%</label><br />\
-                        <input id=\"guest%INDEX%fn\" type=\"text\" placeholder=\"First name\" name=\"guests[%INDEX%][first]\">\
-                        <input id=\"guest%INDEX%ln\" type=\"text\" placeholder=\"Last name\" name=\"guests[%INDEX%][last]\">\
-                    </div>";
     
     var index = 1;
     $("#addGuest").on("click", function() {
@@ -129,30 +122,13 @@ $(document).ready(function() {
     });
 
     function addGuest() {
-        var compiled = template.replace(new RegExp("%INDEX%", 'g'), index.toString());
-        $("#guests").append(compiled);
-        $.get('/rsvp/add_guest/' + index);
-        index++;
+        $("#guests").load('/rsvp/add_guest/');
     }
 
     $("#guests").on("click", "[name='guestDelete']", function() {
+        console.log("Guest Delete!");
         var removedIndex = parseInt(this.getAttribute("index"));
-        $("#guest" + removedIndex).remove();
-
-        for (i = removedIndex+1; i <= 4; i++) {
-            $("#guestDelete" + i).attr("index", (i-1));
-            $("#guestDelete" + i).attr("id", "guestDelete" + (i-1));
-            $("#labGuest" + i).text("Guest " + (i-1));
-            $("#labGuest" + i).attr("id", "labGuest" + (i-1));
-            $("#guest" + i).attr("id", "guest" + (i-1));
-        }
-        index--;
-        if (index == 1) {
-            $(".input-error").each(function() {
-                $(this).removeClass("input-error");
-            });
-            $("#guestErrors").html("");
-        }
+        $("#guests").load("/rsvp/remove_guest/" + removedIndex);
 
     });
 

@@ -8,8 +8,7 @@
                     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box">
                     	<form id="rsvpForm" role="form" action="/rsvp" method="post" class="f1">
                             <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-                            <h3>RSVP</h3><div id="test"></div>
-
+                            <h3>RSVP</h3>
                              <div id="rsvpSubmitted" style="display:<%=@alreadyDone ? 'block' : 'none' %>">
                                 <input id="editRsvpData" type="hidden">
                                 <p>Your reservation has been submitted!</p>
@@ -55,6 +54,7 @@
                                       <span class="glyphicon glyphicon-plus"></span> Add a Guest (Max 4)
                                     </div>
                                     <div id="guests" style="overflow:auto;max-height:250px;">
+                                        <%= render :partial => "/rsvp/guests", :locals => { :guests => gather_guests }%>
                                     </div>
                                     
                                     <div class="f1-buttons">

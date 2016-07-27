@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   	get "/logout" => "devise/sessions#destroy"
   	get "/rsvp" => "rsvp#index"
     get "/rsvp/list_guests" => "rsvp#list_guests"
-    get "/rsvp/add_guest/:id" => "rsvp#add_guest"
+    get "/rsvp/add_guest/" => "rsvp#add_guest"
+    get "/rsvp/remove_guest/:id" => "rsvp#remove_guest"
 
   	get "/music/new" => "musics#new"
   	get "/music" => "musics#index"

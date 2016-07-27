@@ -1,0 +1,12 @@
+<% puts "Rendering guests. guests=#{guests}" %>
+<% guests.each_with_index do |g, i| %>
+	<% puts "Rendering #{g} (#{g.person})" %>
+	<span style="cursor:pointer; padding: 10px 0px;" class="glyphicon glyphicon-trash" name="guestDelete" index="<%= (i+1).to_s %>" />
+    <label style="padding-left:3px"><%= 'Guest' + (i+1).to_s %></label>
+    <br />
+    <input type="text" value="<%= g.person != nil ? g.person.first_name : '' %>">
+	<input type="text" value="<%= g.person != nil ? g.person.last_name : '' %>">
+	<br />
+<% end %>
+<br />
+<% puts "Rendered guests COMPLETE" %>
