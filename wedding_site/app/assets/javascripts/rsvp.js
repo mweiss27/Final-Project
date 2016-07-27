@@ -122,7 +122,10 @@ $(document).ready(function() {
     });
 
     function addGuest() {
-        $("#guests").load('/rsvp/add_guest/');
+        postUpdate(function() {
+            console.log("AJAX success. Calling add_guest now");
+            $("#guests").load('/rsvp/add_guest/');
+        });
     }
 
     $("#guests").on("click", "[name='guestDelete']", function() {
@@ -132,7 +135,7 @@ $(document).ready(function() {
 
     });
 
-    $("#guests").on("blur", "input[type='text']", function() {
+    function postUpdate(onSuccess) {
         var data = new Object();
         data.guests = [];
         $("[name='guestContainer']").each(function() {
@@ -153,7 +156,14 @@ $(document).ready(function() {
             url: "/rsvp/save_guests",
             type: "POST",
             data: { data },
-            success: function(resp){ console.log("AJAX Success. Response: " + resp); }
+            success: onSuccess
+        });
+    }
+
+    $("#guests").on("blur", "input[type='text']", function() {
+
+        postUpdate(function() {
+            console.log("AJAX Success. (blurout)");
         });
 
         if( $(this).val() != "" ) {
