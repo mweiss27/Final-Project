@@ -4,8 +4,12 @@
       <li id="homeHeader"><a href="/">Home</a></li>
       <% if user_signed_in? %>
         <li id="rsvpHeader"><a href="/rsvp">RSVP</a></li>
-      	<li><a href="/musics">Music</a></li>
-        <li><a href="/seating">Seating</a></li>
+        <li id="seatingHeader"
+        <% unless Rsvp.find_by_user_id(current_user.id) and Rsvp.find_by_user_id(current_user.id).response == 1 %>
+        style="display: none;"
+        <% end %>
+         ><a href="/seating">Seating</a></li>
+      	<li id="musicHeader"><a href="/musics">Music</a></li>
       <% end %>
     </ul>
     <ul class="nav navbar-nav navbar-right">

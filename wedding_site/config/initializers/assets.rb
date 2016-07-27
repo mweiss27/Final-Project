@@ -20,3 +20,5 @@ end
 Rails.application.config.assets.precompile += ["jquery.backstretch.min.js"]
 Rails.application.config.assets.precompile += ["retina-1.1.0.min.js"]
 Rails.application.config.assets.precompile += ["musics.css"]
+Rails.application.config.assets.precompile += ["bootstrap_toggle.css"]
+Rails.application.config.assets.precompile += ["bootstrap_toggle.js"]

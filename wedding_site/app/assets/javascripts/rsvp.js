@@ -76,7 +76,7 @@ $(document).ready(function() {
         }
     	
     });
-    
+
     // previous step
     $('.f1 .btn-previous').on('click', function() {
     	// navigation steps / progress steps
@@ -131,7 +131,7 @@ $(document).ready(function() {
     function addGuest() {
         var compiled = template.replace(new RegExp("%INDEX%", 'g'), index.toString());
         $("#guests").append(compiled);
-
+        $.get('/rsvp/add_guest/' + index);
         index++;
     }
 
@@ -191,34 +191,47 @@ $(document).ready(function() {
                         <input id=\"guest%INDEXln\" type=\"text\" placeholder=\"Last name\" name=\"guests[%INDEX%][last]\">\
                     </div>";*/
 
+    // $("#editRsvp").on("click", function() {
+    //     var el = document.getElementById("editRsvpData");//new RegExp("%INDEX%", 'g'), index.toString()
+    //     var elJS = el.getAttribute("value");
+    //     var js = JSON.parse(elJS)["guests"];
+
+    //     //rsvpFormTarget rsvpSubmitted
+
+    //     $("#rsvpSubmitted").hide();
+    //     $("#rsvpFormTarget").show();
+
+    //     for (var i = 0; i < js.length; i++) {
+    //         var guest = js[i];
+
+    //         addGuest();
+            
+    //         $("#guest" + (i+1) + "fn").each(function() {
+    //             console.log(guest);
+    //             this.value = guest["first_name"];
+    //         });
+    //         $("#guest" + (i+1) + "ln").each(function() {
+    //             this.value = guest["last_name"];
+    //         });
+    //     }
+
+    // });
+
     $("#editRsvp").on("click", function() {
-        var el = document.getElementById("editRsvpData");//new RegExp("%INDEX%", 'g'), index.toString()
-        var elJS = el.getAttribute("value");
-        var js = JSON.parse(elJS)["guests"];
-
-        //rsvpFormTarget rsvpSubmitted
-
         $("#rsvpSubmitted").hide();
         $("#rsvpFormTarget").show();
 
-        for (var i = 0; i < js.length; i++) {
-            var guest = js[i];
-
-            addGuest();
-            
-            $("#guest" + (i+1) + "fn").each(function() {
-                console.log(guest);
-                this.value = guest["first_name"];
-            });
-            $("#guest" + (i+1) + "ln").each(function() {
-                this.value = guest["last_name"];
-            });
-        }
-
+        $("#test").load("/rsvp/list_guests");
     });
 
-        $("rsvpFormTarget").load("rsvp/_form.html.erb");
+    $("#choiceSpecific").change(function() {
+        console.log("Changed!");
+        var on = $(this).prop('checked');
+        if (on) {
 
-        $(".active").removeClass("active");
-        $("#rsvpHeader").addClass("active");
+        }
+    });
+
+    $(".active").removeClass("active");
+    $("#rsvpHeader").addClass("active");
 });

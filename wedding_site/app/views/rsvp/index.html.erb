@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-    <body>
         <!-- Top content -->
         <div class="top-content intro-header">
             <div class="container">
@@ -8,9 +5,10 @@
                     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box">
                     	<form id="rsvpForm" role="form" action="/rsvp" method="post" class="f1">
                             <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-                            <h3>RSVP</h3>
+                            <h3>RSVP</h3><div id="test"></div>
+
                              <div id="rsvpSubmitted" style="display:<%=@alreadyDone ? 'block' : 'none' %>">
-                                <input id="editRsvpData" value="<%= @guests %>" type="hidden">
+                                <input id="editRsvpData" type="hidden">
                                 <p>Your reservation has been submitted!</p>
                                 <button id="editRsvp" type="button" class="btn btn-primary">Edit Reservation</button>
                             </div>
@@ -34,14 +32,8 @@
                                 </div>
 
                                 <fieldset>
-                                    <div class="pad2">
-                                        <label class="sr-only" for="f1-first-name">First name</label>
-                                        <input type="text" name="f1-first-name" value="<%= current_user.person.first_name %>" class="f1-first-name form-control" id="f1-first-name" disabled>
-                                    </div>
-                                    <div class="pad2">
-                                        <label class="sr-only" for="f1-last-name">Last name</label>
-                                        <input type="text" name="f1-last-name" value="<%= current_user.person.last_name %>"class="f1-last-name form-control" id="f1-last-name" disabled>
-                                    </div>
+                                    <input type="text" name="f1-first-name" value="<%= current_user.person.first_name %>" disabled>
+                                    <input type="text" name="f1-last-name" value="<%= current_user.person.last_name %>" disabled>
                                     <div class="pad2">
                                         <div class="radio">
                                             <label><input type="radio" name="rsvpConf" value="1" <%= @attending == nil || @attending ? 'checked' : '' %>>Attending</label>
@@ -70,14 +62,21 @@
                                 </fieldset>
 
                                 <fieldset>
-                                    <h4>Accommodations</h4>
-                                    <div class="form-group">
-                                    </div>
-                                    <div class="form-group">
-                                    </div>
-                                    <div class="form-group">
-                                    </div>
-                                    <div class="f1-buttons">
+                                    <h4>Choices: <% @choices.each_with_index do |c, i| %> <%= c.name + (i != @choices.length-1 ? ', ' : '') %> <% end %></h4>
+                                    <h4 style="padding-right:10px; display:inline;">Guest-specific choices?</h4><input id="choiceSpecific" data-toggle="toggle" type="checkbox" data-on="Yes" data-off="No">
+                                    <div id="guests" style="overflow:auto;max-height:250px;">
+                                        <div id="choiceUser">
+                                            <label style="padding-left:3px; display:inline"><%= current_user.person.first_name + " " + current_user.person.last_name %></label>
+
+                                            <select class="form-control" style="width:50%; margin-top:5px; margin-left: 10px; display:inline">
+                                                <% @choices.each do |c| %>
+                                                    <option value="<%= c.name %>"><%= c.name %></option>
+                                                <% end %>
+                                            </select>
+                                        </div>
+                                        
+                                    <div>
+                                    <div class="f1-buttons" style="margin-top:10px;">
                                         <button type="button" class="btn btn-previous">Previous</button>
                                         <button type="submit" class="btn btn-submit">Submit</button>
                                     </div>
@@ -92,9 +91,7 @@
 
 
 		<%= javascript_include_tag "rsvp", "data-turbolinks-track" => true  %>
+        <%= javascript_include_tag "bootstrap_toggle", "data-turbolinks-track" => true  %>
+        <%= stylesheet_link_tag "bootstrap_toggle", "data-turbolinks-track" => true %>
 		<%= javascript_include_tag "retina-1.1.0.min", "data-turbolinks-track" => true  %>
-		<%= javascript_include_tag "jquery.backstretch.min", "data-turbolinks-track" => true  %>        
-
-    </body>
-
-</html>
+		<%= javascript_include_tag "jquery.backstretch.min", "data-turbolinks-track" => true  %>
