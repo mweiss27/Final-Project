@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Weiss Weddig</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
@@ -25,7 +15,7 @@ $(document).ready(function(){
         if(bandName.length == 0)
         {
                 var modUrl = "https://itunes.apple.com/search?term="+songName+"&entity=musicTrack&limit=200"
-      }
+        }
        
         if(songName.length == 0)
         {      
@@ -60,7 +50,7 @@ $(document).ready(function(){
                 var artistName = $tds.text();
                 $tds = $currentRow.find("td:nth-child(3)");
                 var trackName = $tds.text();
-		alert(artistName+"--"+trackName)
+		
     		$("#music_band").val(artistName);
 		$("#music_track").val(trackName); 
 		
@@ -76,55 +66,48 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<div style="padding:16px;">
-        Band: <input id="band" type="textbox" value="Jack Johnson"></input>
-        Track: <input id="track" type="textbox" value=""></input>
+<div class="text-center">
+	<div class = "panel panel-default">
+		<div class = "panel-body">
+        		Band: <input id="band" type="textbox"></input>
+        		Track: <input id="track" type="textbox"></input>
+			<button id = "search_itunes">Search iTunes</button>
+		</div>
+	</div>
 </div>
-
-<h1>New Song</h2>
-
-<button id = "search_itunes">Search iTunes</button>
-<button id = "clear_results">Clear results</button>
-
 
 <form novalidate="novalidate" class="simple_form new_music" id="new_music" action="/musics" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="A2YzrQs6ABN15ZqKwuaPvhHMxoUKXpTqy/+vFHGygOOOJkdlocuAEqr8X6OuJk7Zyg0aF8ScqYdHfzwplgUsug==" />
   
 
-  <div class="form-inputs">
+ <div class="form-inputs">
 
-   <div class='input string optional music_band'><input class='string optional' type='hidden' name='music[band]' id='music_band' /></div>
-   <div class="input string optional music_song"><input class="string optional" type="hidden" name="music[track]" id="music_track" /></div>
-  </div>
-<!--  <div class="form-actions">
-    <input type="submit" name="commit" value="Create Music" class="btn" data-disable-with="Create Music" />
-  </div>
-</form> -->
+ 	<div class='input string optional music_band'><input class='string optional' type='hidden' name='music[band]' id='music_band' /></div>
+ 	<div class="input string optional music_song"><input class="string optional" type="hidden" name="music[track]" id="music_track" /></div>
+ </div>
 
-<!--<button id = "search_itunes">Search iTunes</button>
-<button id = "clear_results">Clear results</button>-->
 
 
 <br>
 <div class="container">
-<div class="row clearfix">
-<div class="col-md-12 column">
-<table class = "table table-striped table-bordered">
-  <thead>
-     <tr>
-        <th>Itunes track ID</th>
-        <th>Artist</th>
-        <th>Song</th>
-        <th>Album</th>
-        <th>Select</th>
-     </tr>
-  </thead>
-  <tbody>
-  </tbody>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<table class = "table table-striped table-bordered">
+  			<thead>
+     				<tr>
+        				<th>Itunes track ID</th>
+        				<th>Artist</th>
+        				<th>Song</th>
+        				<th>Album</th>
+        				<th>Select</th>
+     				</tr>
+  			</thead>
+  			<tbody>
+  			</tbody>
 
-</table>
-</form>
-</div>
-</div>
+			</table>
+		</form>
+		</div>
+	</div>
 </div>
 </body>
 </html>

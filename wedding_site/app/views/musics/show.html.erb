@@ -1,14 +1,22 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Band:</strong>
-  <%= @music.band %>
-</p>
+<div class = "container">
+	<div class = "jumbotron">
+		<p>
+  		<strong>Band:</strong>
+  		<%= @music.band %>
+		</p>
 
-<p>
-  <strong>Song:</strong>
-  <%= @music.track %>
-</p>
+		<p>
+  		<strong>Song:</strong>
+  		<%= @music.track %>
+		</p>
+		
+		<p>
+		<strong>User:</strong>
+		<%= @music.requestName %>
+		<p>		
 
-<%= link_to 'Edit', edit_music_path(@music) %> |
-<%= link_to 'Back', musics_path %>
+     		<%= link_to 'Playlist', musics_path %> 
+	</div>
+</div>
