@@ -9,12 +9,17 @@ class SeatingController < ApplicationController
   
   def self.desotry_reservation_by_person_id person_id
     person = Person.find(person_id)
-    table = Table.find(person.table_id)
-    seat = "guest#{person.seat_id}_id"
-    table.update(seat.to_sym => NIL)
-    table.update(free: table.free + 1)
-    person.update(table_id: NIL)
-    person.update(seat_id: NIL)
+    if person.table_id and person.seat_id then
+      table = Table.find(person.table_id)
+      seat = "guest#{person.seat_id}_id"
+      table.update(seat.to_sym => NIL)
+      table.update(free: table.free + 1)
+      person.update(table_id: NIL)
+      person.update(seat_id: NIL)
+      true
+    else
+      false
+    end
   end
   
   def show
