@@ -240,7 +240,7 @@ class RsvpController < ApplicationController
 		if !attending then
 				puts "Destroying #{Guest.where(:user_id => current_user.id).length} guests"
 		      	SeatingController.desotry_reservation_by_person_id current_user.person.id
-				guests_to_destory = Guest.where(:user_id => current_user.person.id)
+				guests_to_destory = Guest.where(:user_id => current_user.id)
 		      	guests_to_destory.each {|g| SeatingController.desotry_reservation_by_person_id g.person.id}
 		      	guests_to_destory.destroy_all
 		else
