@@ -153,6 +153,8 @@ class RsvpController < ApplicationController
 		if rsvp == nil then
 			rsvp = Rsvp.new(:user_id => current_user.id)
 		end
+		current_user.rsvp_id = rsvp.id
+		current_user.save
 		rsvp.response = attending ? 1 : 0
 		if rsvp != nil then
 			rsvp.save
